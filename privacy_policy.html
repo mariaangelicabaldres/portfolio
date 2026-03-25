@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Maria Angelica Baldres</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ebebeb;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border: #e0e0e0;
+            --accent: #c9a227;
+            --accent-dark: #b08d1f;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --border: #2a2a2a;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .sun-icon {
+            display: none;
+        }
+
+        .moon-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .sun-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            display: none;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .last-modified {
+            font-size: 15px;
+            color: var(--text-tertiary);
+            margin-bottom: 48px;
+            font-style: italic;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .content-section:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-number {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 12px;
+        }
+
+        .section-content ul {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .section-content li {
+            margin-bottom: 8px;
+        }
+
+        .section-content strong {
+            color: var(--text-primary);
+        }
+
+        .contact-email {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 32px;
+            }
+
+            .content-section {
+                padding: 24px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Home
+            </a>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Title -->
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="last-modified">Last modified: March 25, 2026</p>
+
+        <!-- Introduction -->
+        <div class="content-section">
+            <div class="section-content">
+                <p>This Privacy Policy describes how personal information is collected, used, and protected on
+                    <strong>mariaangelicabaldres.com</strong>. Your privacy is important, and this policy outlines the
+                    practices followed to ensure transparency and data protection.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">1.</span> Purpose of the Website
+            </h2>
+            <div class="section-content">
+                <p>This website serves as a <strong>personal portfolio</strong> to showcase professional work, skills,
+                    and experience as an <strong>Executive Virtual Assistant</strong>. It is designed to:</p>
+                <ul>
+                    <li>Present portfolio projects and case studies demonstrating operations, systems, and business support work</li>
+                    <li>Share professional background, expertise, and service offerings</li>
+                    <li>Provide contact information for professional inquiries and potential clients</li>
+                </ul>
+                <p><strong>Note:</strong> No products or services are sold directly through this website, and no
+                    e-commerce transactions are conducted.</p>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">2.</span> Information Collection
+            </h2>
+            <div class="section-content">
+                <p>This website <strong>does not intentionally collect personal data</strong> through automated means.
+                    However:</p>
+                <ul>
+                    <li><strong>Contact Forms & Email:</strong> If you choose to contact me via email or a contact form,
+                        any information you voluntarily provide (such as your name, email address, or message content)
+                        is used solely to respond to your inquiry and engage in professional communication.</li>
+                    <li><strong>No Account Registration:</strong> This website does not require users to create accounts
+                        or provide login credentials.</li>
+                    <li><strong>No Payment Information:</strong> No financial or payment information is collected on
+                        this site.</li>
+                </ul>
+                <p>Personal information provided through direct communication is handled with care and is never sold,
+                    rented, or shared with third parties for marketing purposes.</p>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">3.</span> Cookies and Analytics
+            </h2>
+            <div class="section-content">
+                <p>This website takes a privacy-conscious approach to data collection:</p>
+                <ul>
+                    <li><strong>No Advertising Cookies:</strong> This website does not use cookies for advertising,
+                        tracking, or behavioral profiling.</li>
+                    <li><strong>Basic Analytics:</strong> Minimal analytics may be used to understand general website
+                        traffic patterns and improve content quality (e.g., page views, referral sources, device types).
+                        These analytics tools are configured to prioritize user privacy and do <strong>not collect
+                            personally identifiable information (PII)</strong>.</li>
+                    <li><strong>Theme Preference:</strong> A local storage preference may be saved in your browser to
+                        remember your theme choice (light/dark mode) for a better user experience. This data stays on
+                        your device and is not transmitted to any server.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">4.</span> Third-Party Services and External Links
+            </h2>
+            <div class="section-content">
+                <p>This website may link to external platforms and services, including:</p>
+                <ul>
+                    <li><strong>Social Media:</strong> LinkedIn, GitHub, Credly</li>
+                    <li><strong>Professional Platforms:</strong> Portfolio hosting, project repositories, or related
+                        professional sites</li>
+                </ul>
+                <p><strong>Important:</strong> I am not responsible for the privacy practices, content, or data handling
+                    policies of these third-party sites. When you click on external links, you leave this website and
+                    are subject to the privacy policies of those platforms. I encourage you to review their privacy
+                    statements before sharing any personal information.</p>
+            </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">5.</span> Data Security
+            </h2>
+            <div class="section-content">
+                <p>Reasonable measures are taken to ensure this website remains secure and to protect any information
+                    shared through direct communication. These measures include:</p>
+                <ul>
+                    <li>Using secure hosting services with industry-standard security practices</li>
+                    <li>Regular updates and monitoring to address potential vulnerabilities</li>
+                    <li>Limiting access to any personal data collected through inquiries</li>
+                </ul>
+                <p><strong>Disclaimer:</strong> While every effort is made to protect your information, no method of
+                    transmission over the internet or electronic storage is 100% secure. I cannot guarantee absolute
+                    security but am committed to implementing best practices to safeguard your data.</p>
+            </div>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">6.</span> Your Rights and Choices
+            </h2>
+            <div class="section-content">
+                <p>You have the following rights regarding your personal information:</p>
+                <ul>
+                    <li><strong>Access and Correction:</strong> You may request access to or correction of any personal
+                        information you have provided through direct communication.</li>
+                    <li><strong>Deletion:</strong> You may request the deletion of your personal information at any time
+                        by contacting me directly.</li>
+                    <li><strong>Opt-Out:</strong> If you no longer wish to receive communications from me, you can
+                        request to be removed from any contact lists.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">7.</span> Changes to This Policy
+            </h2>
+            <div class="section-content">
+                <p>This Privacy Policy may be updated occasionally to reflect changes in website practices, legal
+                    requirements, or service improvements. Any changes will be:</p>
+                <ul>
+                    <li>Posted on this page with an updated "Last modified" date</li>
+                    <li>Effective immediately upon posting unless otherwise stated</li>
+                </ul>
+                <p>I encourage you to review this policy periodically to stay informed about how your information is
+                    protected.</p>
+            </div>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <span class="section-number">8.</span> Contact Information
+            </h2>
+            <div class="section-content">
+                <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how your
+                    information is handled, please contact me at:</p>
+                <p style="margin-top: 16px;">
+                    <strong>Email:</strong> <a href="mailto:baldresmariaangelica@gmail.com" class="contact-email">baldresmariaangelica@gmail.com</a>
+                </p>
+                <p style="margin-top: 12px;">I will respond to inquiries as promptly as possible and work to address any
+                    privacy-related concerns you may have.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            © <span id="currentYear"></span> Maria Angelica Baldres. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+</body>
+</html>

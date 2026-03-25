@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Maria Angelica Baldres</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ebebeb;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border: #e0e0e0;
+            --accent: #c9a227;
+            --accent-dark: #b08d1f;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --border: #2a2a2a;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .sun-icon {
+            display: none;
+        }
+
+        .moon-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .sun-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            display: none;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .page-subtitle {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        /* FAQ Categories */
+        .faq-category {
+            margin-bottom: 48px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        /* Collapsible Questions */
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+            gap: 16px;
+        }
+
+        .faq-question-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .faq-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--text-tertiary);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 24px 24px 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faq-answer-content ul {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .faq-answer-content li {
+            margin-bottom: 8px;
+        }
+
+        .faq-answer-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            .page-title {
+                font-size: 32px;
+            }
+
+            .faq-question {
+                padding: 16px 20px;
+            }
+
+            .faq-question-text {
+                font-size: 15px;
+            }
+
+            .faq-answer-content {
+                padding: 0 20px 20px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Home
+            </a>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </button>
+        </header>
+
+        <h1 class="page-title">Frequently Asked Questions</h1>
+        <p class="page-subtitle">Common questions about how I work, what I offer, my tools, and what it's like to work with me as your virtual assistant.</p>
+
+        <!-- Category 1: About & Fit -->
+        <div class="faq-category">
+            <h2 class="category-title">About & Fit</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">What type of virtual assistant work do you specialize in?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>I specialize in executive and operational support — particularly for founders and operators who need someone who can think independently, build systems, and keep operations running without constant direction.</p>
+                        <p>My core areas include:</p>
+                        <ul>
+                            <li>Operations management and workflow design</li>
+                            <li>Reporting, dashboards, and tracking systems</li>
+                            <li>Email and calendar management</li>
+                            <li>Financial tracking and reconciliation</li>
+                            <li>Research, summaries, and business documentation</li>
+                            <li>Process documentation and SOP creation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">What kinds of clients or businesses are you best suited for?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>I work best with founders, solo operators, and teams who need reliable, proactive support but don't want to micromanage. I'm a good fit for fast-moving environments where tasks come in loose and varied, and where you need someone who can figure things out independently.</p>
+                        <p>I have hands-on experience with real estate operations, retail business management, and service-based businesses, which makes me adaptable across industries.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">What makes you different from a standard virtual assistant?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Most VAs execute tasks. I focus on building systems. I don't just complete what you ask — I look for inefficiencies, create structured processes, and build tools (trackers, dashboards, templates, SOPs) that make things easier going forward.</p>
+                        <p>My background in data and business operations means I bring an analytical lens to everything — I can spot patterns, organise information clearly, and give you better visibility into your own business.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 2: Services & Deliverables -->
+        <div class="faq-category">
+            <h2 class="category-title">Services & Deliverables</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">What tasks can you handle on a day-to-day basis?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Day-to-day tasks I can handle include:</p>
+                        <ul>
+                            <li>Monitoring and organising your inbox, drafting replies</li>
+                            <li>Managing your calendar and scheduling appointments</li>
+                            <li>Taking notes in meetings and organising action items</li>
+                            <li>Researching topics and delivering clear summaries</li>
+                            <li>Transferring data between systems and maintaining trackers</li>
+                            <li>Building and updating Notion pages, templates, and databases</li>
+                            <li>Filing documents and keeping shared drives organised</li>
+                            <li>Processing job applications, vendor lists, or candidate pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">Can you help build systems and processes from scratch?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes — this is actually one of my strongest areas. I can design and build tracking systems, financial dashboards, reporting templates, and operational workflows from the ground up. I've built systems that eliminated 8+ hours of manual work per week for clients by automating repetitive reporting and data processes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">Can you handle financial tracking and bookkeeping support?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes. I have experience building dynamic P&L statements, reconciling transactions, tracking expenses and revenue across multiple business branches, and producing clean financial summaries for decision-making. I'm not a CPA, but I provide strong operational financial support.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 3: Working Style & Communication -->
+        <div class="faq-category">
+            <h2 class="category-title">Working Style & Communication</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">How do you prefer to receive tasks and instructions?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>I'm comfortable receiving tasks through messages, voice notes, quick calls, or written briefs — whatever works best for you. I'm used to working with loose or evolving instructions and figuring out the best way to complete things without needing everything spelled out step by step.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">How do you make sure nothing falls through the cracks?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>I maintain structured task lists and trackers, set clear deadlines for myself, and proactively follow up on open items. If I notice something important being missed or overlooked, I flag it — rather than waiting to be asked.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">How do you handle urgent or last-minute requests?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>I prioritise quickly and communicate clearly. If something urgent comes in, I'll acknowledge it immediately, give you an honest estimate of when it will be done, and get to work. I understand that in fast-moving environments, priorities shift — and I adapt accordingly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">Are you proactive, or do you wait to be told what to do?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>I'm proactive by nature. If I notice something that could be improved, a task that's been missed, or a process that could be made easier, I'll bring it up. I don't wait to be asked for every detail — I take initiative and report back once it's done.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 4: Tools & Technical Skills -->
+        <div class="faq-category">
+            <h2 class="category-title">Tools & Technical Skills</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">What tools do you use most often?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>My most-used tools are:</p>
+                        <ul>
+                            <li>Notion — for documentation, databases, and project tracking</li>
+                            <li>Google Workspace — Docs, Sheets, Drive, Gmail, Calendar</li>
+                            <li>Microsoft Excel — advanced formulas, pivot tables, financial models</li>
+                            <li>Slack and Zoom — for communication and meetings</li>
+                            <li>Python — for automation, reporting, and data processing</li>
+                            <li>ChatGPT and Claude AI — for research and drafting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">Can you learn new tools quickly?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes — I pick up new tools quickly. If you use a platform I haven't worked with before, I'll get up to speed fast without needing hand-holding. Most productivity and project management tools follow similar logic, so the learning curve is usually short.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">How advanced is your spreadsheet work?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Advanced. I'm comfortable with complex formulas (SUMIFS, AVERAGEIFS, INDEX/MATCH, VLOOKUP), pivot tables, dynamic dashboards, conditional formatting, and building structured templates that auto-calculate when new data is entered. I've built full financial reporting systems in spreadsheets for multi-branch businesses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 5: Portfolio & Confidentiality -->
+        <div class="faq-category">
+            <h2 class="category-title">Portfolio & Confidentiality</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">Are the projects on this site real client work?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>The projects shown are portfolio case studies based on real business scenarios — some from my own business operations and others built to demonstrate skills using real-world contexts. I do not publish paid client work publicly, as client data and deliverables are always kept confidential.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">How do you handle sensitive or confidential information?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Discretion is non-negotiable. I treat all client information — emails, financials, business strategies, personal matters — with strict confidentiality. I'm comfortable signing NDAs and following any access or security protocols you have in place.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 6: Engagement & Availability -->
+        <div class="faq-category">
+            <h2 class="category-title">Engagement & Availability</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">What information do you need to get started?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>To get started, I typically need:</p>
+                        <ul>
+                            <li>A brief overview of your business and what you need help with</li>
+                            <li>The tools and platforms you currently use</li>
+                            <li>Your communication preferences (Slack, email, calls, etc.)</li>
+                            <li>Expected workload and any immediate priorities</li>
+                        </ul>
+                        <p>From there, I'll ask any follow-up questions needed and get going.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">Are you available for both short-term and long-term engagements?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes. I'm open to both project-based work and ongoing retainer arrangements. Long-term engagements are preferred as they allow me to truly understand your business and become a dependable operational partner.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="faq-question-text">How is pricing typically structured?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Pricing depends on scope, workload, and engagement type. It can be structured as hourly, fixed-scope per project, or a monthly retainer for ongoing support. Feel free to reach out and we can discuss what makes sense for your situation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            &copy; <span id="currentYear"></span> Maria Angelica Baldres. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        // Toggle FAQ accordion
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const content = answer.querySelector('.faq-answer-content');
+
+            // Close other open items
+            document.querySelectorAll('.faq-item.open').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('open');
+                    item.querySelector('.faq-answer').style.maxHeight = null;
+                }
+            });
+
+            // Toggle current item
+            faqItem.classList.toggle('open');
+
+            if (faqItem.classList.contains('open')) {
+                answer.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                answer.style.maxHeight = null;
+            }
+        }
+    </script>
+</body>
+
+</html>

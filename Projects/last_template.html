@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================
+         INSTRUCTION: Update the page title
+         Format: [Project Name] | Maria Angelica Baldres
+         Example: "Airbnb Market Demand Analysis | Maria Angelica Baldres"
+    ============================================ -->
+    <title>[PROJECT TITLE] | Maria Angelica Baldres</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ebebeb;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border: #e0e0e0;
+            --accent: #c9a227;
+            --accent-dark: #b08d1f;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --border: #2a2a2a;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .sun-icon { display: none; }
+        .moon-icon { display: block; }
+        [data-theme="dark"] .sun-icon { display: block; }
+        [data-theme="dark"] .moon-icon { display: none; }
+
+        /* Project Hero */
+        .project-hero {
+            margin-bottom: 48px;
+        }
+
+        .project-category {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .project-outcome {
+            font-size: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Tools Used */
+        .tools-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .tool-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Project Meta */
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 48px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .meta-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-tertiary);
+        }
+
+        /* Executive Summary */
+        .quick-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+
+        .quick-summary h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        /* Skills Demonstrated */
+        .skills-demonstrated {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .skills-demonstrated h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .skill-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-pill {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .skill-pill:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 48px;
+        }
+
+        .toc-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .toc-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .toc-list a:hover {
+            background: var(--bg-secondary);
+            color: var(--accent);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 56px;
+            scroll-margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .section-content p {
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Cards */
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 20px;
+        }
+
+        /* Lists */
+        .styled-list {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .styled-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .styled-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* Numbered List */
+        .numbered-list {
+            list-style: none;
+            counter-reset: item;
+            margin-top: 16px;
+        }
+
+        .numbered-list li {
+            counter-increment: item;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .numbered-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Insight Cards */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .insight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .insight-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .insight-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .importance-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .importance-critical {
+            background: rgba(220, 38, 38, 0.15);
+            color: #dc2626;
+        }
+
+        [data-theme="dark"] .importance-critical {
+            background: rgba(220, 38, 38, 0.25);
+            color: #fca5a5;
+        }
+
+        .importance-important {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+        }
+
+        [data-theme="dark"] .importance-important {
+            background: rgba(245, 158, 11, 0.25);
+            color: #fcd34d;
+        }
+
+        .importance-nice {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+
+        [data-theme="dark"] .importance-nice {
+            background: rgba(34, 197, 94, 0.25);
+            color: #86efac;
+        }
+
+        .so-what {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .so-what strong {
+            font-style: normal;
+            color: var(--accent);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Recommendation Cards */
+        .recommendation-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .recommendation-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .recommendation-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .recommendation-icon svg {
+            width: 20px;
+            height: 20px;
+            color: #000;
+        }
+
+        .recommendation-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .recommendation-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Impact Metrics Box */
+        .impact-box {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .impact-box h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impact-box h4::before {
+            content: '📊';
+            font-size: 20px;
+        }
+
+        .impact-box ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .impact-box li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .impact-box li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .impact-box strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Technical Appendix */
+        .tech-appendix {
+            margin-top: 32px;
+        }
+
+        /* Share Section */
+        .share-section {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            justify-content: center;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .share-btn:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Project Navigation */
+        .project-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 2px solid var(--border);
+            gap: 20px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            transform: translateX(-2px);
+        }
+
+        .nav-btn.next:hover {
+            transform: translateX(2px);
+        }
+
+        .nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .nav-spacer {
+            flex: 1;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .data-table td {
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Dashboard Embed */
+        .dashboard-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .dashboard-placeholder {
+            aspect-ratio: 16/9;
+            background: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .dashboard-placeholder svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .dashboard-links {
+            display: flex;
+            gap: 12px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .dashboard-link:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .dashboard-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Video Section */
+        .video-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .video-placeholder svg {
+            width: 64px;
+            height: 64px;
+        }
+
+        /* Embedded YouTube Video */
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Documentation Link */
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-top: 16px;
+        }
+
+        .doc-link:hover {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .doc-link svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* Collapsible Section */
+        .collapsible {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .collapsible-header:hover {
+            background: var(--bg-secondary);
+        }
+
+        .collapsible-header h4 {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .collapsible-header svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-tertiary);
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible.open .collapsible-header svg {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible.open .collapsible-content {
+            max-height: 2000px;
+        }
+
+        .collapsible-inner {
+            padding: 0 24px 24px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .gallery-image {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* GitHub Link */
+        .github-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .github-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .github-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .github-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .github-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Next Steps */
+        .next-steps-list {
+            margin-top: 16px;
+        }
+
+        .next-step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .next-step-item:last-child {
+            border-bottom: none;
+        }
+
+        .step-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .next-step-item h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .next-step-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Data Dictionary Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .data-table th {
+            background: var(--bg-secondary);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table td:first-child {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .data-table td:last-child {
+            color: var(--text-secondary);
+        }
+
+        /* Video Timestamps */
+        .video-timestamps {
+            margin-top: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .timestamps-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .timestamp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .timestamp-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .timestamp-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .timestamp-time {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            flex-shrink: 0;
+            min-width: 50px;
+        }
+
+        .timestamp-label {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        /* Credibility Note */
+        .credibility-note {
+            margin-top: 40px;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .project-title {
+                font-size: 32px;
+            }
+
+            .project-outcome {
+                font-size: 17px;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .github-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .project-nav {
+                flex-direction: column;
+            }
+
+            .nav-spacer {
+                display: none;
+            }
+
+            .share-section {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <a href="../projects.html#projects-section" class="back-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Projects
+            </a>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Project Hero -->
+        <div class="project-hero">
+            <!-- ============================================
+                 INSTRUCTION: Category Tag
+                 Choose one that best fits your project:
+                 - Real Estate
+                 - Marketing Analytics
+                 - Business Intelligence
+                 - Financial Analysis
+                 - Healthcare
+                 - E-Commerce
+                 - Social Media
+                 - HR Analytics
+                 - Supply Chain
+                 - Customer Analytics
+            ============================================ -->
+            <span class="project-category">[CATEGORY]</span>
+            
+            <!-- ============================================
+                 INSTRUCTION: Project Title
+                 Keep it concise and descriptive (5-8 words)
+                 Examples: 
+                 - "Airbnb Market Demand Analysis"
+                 - "E-Commerce Customer Segmentation"
+                 - "Sales Performance Dashboard"
+            ============================================ -->
+            <h1 class="project-title">[PROJECT TITLE]</h1>
+            
+            <!-- ============================================
+                 INSTRUCTION: One-Line Outcome/Impact Statement
+                 Summarize the key result or impact in 1-2 sentences.
+                 Include specific metrics where possible.
+                 Format: [Action verb] + [what you did] + [measurable outcome]
+                 Examples:
+                 - "Identified high-demand zip codes and pricing opportunities to improve host revenue by analyzing 45,000+ listings across Seattle."
+                 - "Reduced customer churn by 15% through predictive modeling and targeted retention strategies."
+                 - "Automated weekly reporting, saving 8+ hours per week in manual data processing."
+            ============================================ -->
+            <p class="project-outcome">[One-line outcome statement with specific metrics/impact]</p>
+            
+            <!-- ============================================
+                 INSTRUCTION: Tools Used
+                 List all tools, technologies, and languages used.
+                 Add or remove <span class="tool-tag"> elements as needed.
+                 Common options: Python, SQL, Pandas, Tableau, Power BI, 
+                 Excel, R, Google Sheets, BigQuery, Jupyter, etc.
+            ============================================ -->
+            <div class="tools-section">
+                <span class="tool-tag">[Tool 1]</span>
+                <span class="tool-tag">[Tool 2]</span>
+                <span class="tool-tag">[Tool 3]</span>
+                <span class="tool-tag">[Tool 4]</span>
+                <span class="tool-tag">[Tool 5]</span>
+                <!-- Add or remove tool tags as needed -->
+            </div>
+
+            <!-- ============================================
+                 IMPROVEMENT #2: Skills Demonstrated
+                 List the analytical and technical skills showcased in this project.
+                 Examples: Data Cleaning, Statistical Analysis, Business Storytelling,
+                 Dashboard Design, SQL Optimization, A/B Testing, etc.
+            ============================================ -->
+            <div class="skills-demonstrated">
+                <h4>Skills Demonstrated</h4>
+                <div class="skill-pills">
+                    <span class="skill-pill">[Skill 1 - e.g., Data Cleaning]</span>
+                    <span class="skill-pill">[Skill 2 - e.g., Statistical Analysis]</span>
+                    <span class="skill-pill">[Skill 3 - e.g., Business Storytelling]</span>
+                    <span class="skill-pill">[Skill 4 - e.g., Dashboard Design]</span>
+                    <span class="skill-pill">[Skill 5 - e.g., SQL Optimization]</span>
+                    <!-- Add or remove as needed -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Meta -->
+        <div class="project-meta">
+            <!-- ============================================
+                 INSTRUCTION: Project Metadata
+                 Update each meta-item with project-specific info:
+                 1. Date: When was this project completed? (e.g., "January 2026")
+                 2. Duration: How long did it take? (e.g., "2 weeks", "1 month")
+                 3. Location/Context: Geographic area or business context (e.g., "Seattle, WA", "Global E-Commerce")
+                 4. Data Size: Number of records analyzed (e.g., "45,000+ records", "2 years of data")
+                 5. Language: Project language (e.g., "English", "Tagalog", "German")
+            ============================================ -->
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>[Month Year]</span>
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span>[Duration]</span>
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>[Location/Context]</span>
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                </svg>
+                <span>[Data Size]</span>
+            </div>
+            <div class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 8l6 6"/>
+                    <path d="M4 14l6-6 2-3"/>
+                    <path d="M2 5h12"/>
+                    <path d="M7 2h1"/>
+                    <path d="M22 22l-5-10-5 10"/>
+                    <path d="M14 18h6"/>
+                </svg>
+                <span>[Language]</span>
+            </div>
+        </div>
+
+        <!-- ============================================
+             IMPROVEMENT #1: Executive Summary
+             Provide a concise text summary of the project's key findings and impact.
+             This should be 2-4 sentences that capture:
+             - What was analyzed
+             - Key finding/insight
+             - Business impact/outcome
+             
+             Example:
+             "This analysis examined 45,000+ Airbnb listings across Seattle to identify 
+             high-demand neighborhoods and optimal pricing strategies. The study revealed 
+             that 3-4 bedroom properties in Capitol Hill and Queen Anne generate 25% higher 
+             revenue than the city average. These insights can help investors prioritize 
+             acquisition targets and maximize ROI in the short-term rental market."
+        ============================================ -->
+        <div class="quick-summary">
+            <h3>Executive Summary</h3>
+            <p style="font-size: 15px; line-height: 1.8; color: var(--text-secondary); margin: 0;">
+                [Write 2-4 sentences summarizing: (1) What you analyzed, (2) Key finding or insight, (3) Business impact or outcome. Be specific with numbers and actionable takeaways. This is the first thing recruiters and stakeholders will read - make it count.]
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3 class="toc-title">Table of Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#problem">1. Business Problem</a></li>
+                <li><a href="#questions">2. Key Questions</a></li>
+                <li><a href="#data">3. Data Overview</a></li>
+                <li><a href="#methodology">4. Methodology</a></li>
+                <li><a href="#insights">5. Key Insights</a></li>
+                <li><a href="#recommendations">6. Recommendations</a></li>
+                <li><a href="#dashboard">7. Dashboard & Visuals</a></li>
+                <li><a href="#process">8. Video Presentation & Process Documentation</a></li>
+                <li><a href="#dictionary">9. Data Dictionary / KPI Definitions</a></li>
+                <li><a href="#next">10. Next Steps</a></li>
+            </ul>
+        </nav>
+
+        <!-- Section 1: Business Problem -->
+        <section id="problem" class="section">
+            <h2 class="section-title">
+                <span class="section-number">1</span>
+                Business Problem
+            </h2>
+            <div class="section-content">
+                <!-- ============================================
+                     INSTRUCTION: Business Problem Description
+                     Write 1-2 paragraphs explaining:
+                     - Who is the stakeholder/client? (e.g., "A short-term rental investor", "The marketing team")
+                     - What problem are they trying to solve?
+                     - What is the goal of this analysis?
+                ============================================ -->
+                <p>[Describe the stakeholder and what problem they are trying to solve. What business decision does this analysis support?]</p>
+                
+                <div class="content-card">
+                    <!-- ============================================
+                         INSTRUCTION: The Challenge
+                         Summarize the core challenge in 2-3 sentences.
+                         What happens without this analysis? What's at stake?
+                    ============================================ -->
+                    <h4 style="margin-bottom: 12px; font-size: 15px;">The Challenge</h4>
+                    <p style="margin: 0;">[Explain the specific challenge. What are the consequences of not having data-driven insights? What does this analysis aim to provide?]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Key Questions -->
+        <section id="questions" class="section">
+            <h2 class="section-title">
+                <span class="section-number">2</span>
+                Key Questions
+            </h2>
+            <div class="section-content">
+                <p>This analysis was structured around answering the following business questions:</p>
+                <!-- ============================================
+                     INSTRUCTION: Key Questions
+                     List 4-6 specific, answerable questions that guided your analysis.
+                     These should be directly tied to the business problem.
+                     Format as numbered list items.
+                     Examples:
+                     - "Which customer segments have the highest lifetime value?"
+                     - "What factors most influence conversion rates?"
+                     - "How does seasonality affect sales patterns?"
+                ============================================ -->
+                <ol class="numbered-list">
+                    <li>[Key Question 1 - Be specific and measurable]</li>
+                    <li>[Key Question 2]</li>
+                    <li>[Key Question 3]</li>
+                    <li>[Key Question 4]</li>
+                    <li>[Key Question 5]</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 3: Data Overview -->
+        <section id="data" class="section">
+            <h2 class="section-title">
+                <span class="section-number">3</span>
+                Data Overview
+            </h2>
+            <div class="section-content">
+                <!-- ============================================
+                     INSTRUCTION: Data Overview Introduction
+                     Write 1 sentence describing the data source.
+                ============================================ -->
+                <p>[Brief description of the data used - e.g., "The analysis utilized publicly available Airbnb listings data for the Seattle metropolitan area."]</p>
+                
+                <div class="content-card">
+                    <!-- ============================================
+                         INSTRUCTION: Data Details Table
+                         Update each row with your project's data information:
+                         - Data Source: Where did the data come from?
+                         - Time Period: What date range does it cover?
+                         - Records: How many rows/records?
+                         - Key Fields: What are the main columns/variables?
+                         - Limitations: What's missing or problematic about the data?
+                    ============================================ -->
+                    <table class="data-table">
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Details</th>
+                        </tr>
+                        <tr>
+                            <td>Data Source</td>
+                            <td>[Source name - e.g., "Inside Airbnb (public dataset)", "Company CRM", "Kaggle"]</td>
+                        </tr>
+                        <tr>
+                            <td>Time Period</td>
+                            <td>[Date range - e.g., "2016 – 2025", "Q1-Q4 2024"]</td>
+                        </tr>
+                        <tr>
+                            <td>Records</td>
+                            <td>[Number of records - e.g., "~45,000 listings", "150,000 transactions"]</td>
+                        </tr>
+                        <tr>
+                            <td>Key Fields</td>
+                            <td>[Main columns - e.g., "price, bedrooms, zip_code, availability, listing_id, reviews"]</td>
+                        </tr>
+                        <tr>
+                            <td>Limitations</td>
+                            <td>[What's missing - e.g., "Does not include cleaning fees, cancellations, or actual booking data"]</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Methodology -->
+        <section id="methodology" class="section">
+            <h2 class="section-title">
+                <span class="section-number">4</span>
+                Methodology
+            </h2>
+            <div class="section-content">
+                <p>A systematic approach was taken to clean, transform, and analyze the data:</p>
+                <!-- ============================================
+                     INSTRUCTION: Methodology Steps
+                     List 4-6 steps describing your analytical process.
+                     Include specific techniques used at each step.
+                     Format: <strong>Step Name:</strong> Description
+                     Common steps:
+                     - Data Cleaning
+                     - Feature Engineering
+                     - Exploratory Data Analysis
+                     - Statistical Analysis
+                     - Machine Learning
+                     - Visualization
+                ============================================ -->
+                <ol class="numbered-list">
+                    <li><strong>[Step 1 Name]:</strong> [Description of what you did - e.g., "Removed invalid price entries, handled missing values, and standardized formats"]</li>
+                    <li><strong>[Step 2 Name]:</strong> [Description]</li>
+                    <li><strong>[Step 3 Name]:</strong> [Description]</li>
+                    <li><strong>[Step 4 Name]:</strong> [Description]</li>
+                    <li><strong>[Step 5 Name]:</strong> [Description]</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 5: Key Insights -->
+        <section id="insights" class="section">
+            <h2 class="section-title">
+                <span class="section-number">5</span>
+                Key Insights
+            </h2>
+            <div class="section-content">
+                <p>The analysis revealed several actionable insights:</p>
+                
+                <!-- ============================================
+                     IMPROVEMENT #3: Enhanced Insights
+                     Each insight now includes:
+                     1. Importance Badge (critical/important/nice) - Choose one per insight
+                     2. Main finding with metrics
+                     3. "So What?" statement explaining business impact
+                     
+                     Importance levels:
+                     - critical: High-impact, urgent action needed
+                     - important: Significant value, should prioritize
+                     - nice: Useful information, good to know
+                ============================================ -->
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <span class="importance-badge importance-critical">Critical</span>
+                        <h4>📊 [Insight 1 Title]</h4>
+                        <p>[Insight description with specific metrics - e.g., "3–4 bedroom listings generate the highest average nightly revenue, outperforming both smaller and larger properties by 25%."]</p>
+                        <div class="so-what">
+                            <strong>So What?</strong> [Business impact - e.g., "Investors should prioritize acquiring 3-4 bedroom properties to maximize ROI in the short-term rental market."]
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <span class="importance-badge importance-important">Important</span>
+                        <h4>📈 [Insight 2 Title]</h4>
+                        <p>[Insight description with specific metrics]</p>
+                        <div class="so-what">
+                            <strong>So What?</strong> [Business impact - Why does this matter? What action should be taken?]
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <span class="importance-badge importance-important">Important</span>
+                        <h4>🎯 [Insight 3 Title]</h4>
+                        <p>[Insight description with specific metrics]</p>
+                        <div class="so-what">
+                            <strong>So What?</strong> [Business impact]
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <span class="importance-badge importance-nice">Nice to Know</span>
+                        <h4>💡 [Insight 4 Title]</h4>
+                        <p>[Insight description with specific metrics]</p>
+                        <div class="so-what">
+                            <strong>So What?</strong> [Business impact]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Recommendations -->
+        <section id="recommendations" class="section">
+            <h2 class="section-title">
+                <span class="section-number">6</span>
+                Recommendations
+            </h2>
+            <div class="section-content">
+                <p>Based on the analysis, here are the actionable recommendations:</p>
+                
+                <!-- ============================================
+                     INSTRUCTION: Recommendations
+                     Create 3-5 recommendation cards.
+                     Each should include:
+                     - An appropriate SVG icon (you can keep the existing ones or find new ones)
+                     - A clear action-oriented title
+                     - A 1-2 sentence explanation of why and how
+                     
+                     Tips:
+                     - Start titles with action verbs (Prioritize, Implement, Focus, Avoid, etc.)
+                     - Be specific about what action to take
+                     - Tie recommendations back to insights
+                ============================================ -->
+                <div style="margin-top: 20px;">
+                    <div class="recommendation-card">
+                        <div class="recommendation-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <div class="recommendation-content">
+                            <h4>[Recommendation 1 Title - Action-oriented]</h4>
+                            <p>[Explanation of the recommendation and expected impact]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <div class="recommendation-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="recommendation-content">
+                            <h4>[Recommendation 2 Title]</h4>
+                            <p>[Explanation of the recommendation and expected impact]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <div class="recommendation-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                        <div class="recommendation-content">
+                            <h4>[Recommendation 3 Title]</h4>
+                            <p>[Explanation of the recommendation and expected impact]</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                     IMPROVEMENT #5: Impact Metrics Box
+                     Quantify the expected business impact of your recommendations.
+                     Examples:
+                     - Revenue: Est. +$50K annually
+                     - Efficiency: Save 8 hrs/week
+                     - Quality: 30% fewer errors
+                     - Customer Satisfaction: +12 NPS points
+                     - Cost Reduction: -$25K operational costs
+                ============================================ -->
+                <div class="impact-box">
+                    <h4>Expected Business Impact</h4>
+                    <ul>
+                        <li><strong>Revenue:</strong> Estimated +$[XX]K annually from optimized pricing strategy</li>
+                        <li><strong>Efficiency:</strong> Save [X] hours/week through automated reporting</li>
+                        <li><strong>Risk Reduction:</strong> [XX]% fewer compliance errors with improved processes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Dashboard & Visuals -->
+        <section id="dashboard" class="section">
+            <h2 class="section-title">
+                <span class="section-number">7</span>
+                Dashboard & Visuals
+            </h2>
+            <div class="section-content">
+                <p>An interactive dashboard was created to explore the data and findings:</p>
+                
+                <div class="dashboard-container">
+                    <!-- ============================================
+                         INSTRUCTION: Dashboard Preview
+                         Option 1: Keep the placeholder (shown below)
+                         Option 2: Replace with actual screenshot using:
+                                   <img src="path/to/screenshot.png" alt="Dashboard Preview" style="width: 100%;">
+                         Option 3: Embed actual Tableau dashboard using embed code
+                    ============================================ -->
+                    <div class="dashboard-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
+                        </svg>
+                        <span>Dashboard Preview</span>
+                    </div>
+                    <div class="dashboard-links">
+                        <!-- ============================================
+                             INSTRUCTION: Dashboard Links
+                             Update the href URLs to your actual dashboard and code links.
+                             Remove links that don't apply to your project.
+                        ============================================ -->
+                        <a href="[YOUR_TABLEAU_PUBLIC_OR_POWERBI_LINK]" class="dashboard-link" target="_blank">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            View on Tableau Public
+                        </a>
+                        <a href="[YOUR_GITHUB_REPO_LINK]" class="dashboard-link" target="_blank">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            View Code on GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                     INSTRUCTION: Screenshot Gallery (Optional)
+                     Add 2-4 screenshots of key visualizations.
+                     Replace the placeholder divs with actual images:
+                     <img src="path/to/chart1.png" alt="Chart description">
+                     
+                     If you don't have screenshots yet, you can:
+                     - Keep the placeholders
+                     - Remove this entire image-gallery section
+                ============================================ -->
+                <div class="image-gallery">
+                    <div class="gallery-image">
+                        <div style="aspect-ratio: 4/3; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; color: var(--text-tertiary);">
+                            Chart Screenshot 1
+                        </div>
+                    </div>
+                    <div class="gallery-image">
+                        <div style="aspect-ratio: 4/3; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; color: var(--text-tertiary);">
+                            Chart Screenshot 2
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Video Presentation & Process Documentation -->
+        <section id="process" class="section">
+            <h2 class="section-title">
+                <span class="section-number">8</span>
+                Video Presentation & Process Documentation
+            </h2>
+            <div class="section-content">
+                <p>A comprehensive video walkthrough covering the complete analytical process—from data cleaning and transformation to insights and recommendations. This presentation includes both the technical methodology and executive-ready findings suitable for stakeholder review.</p>
+                
+                <!-- ============================================
+                     INSTRUCTION: Video Embed
+                     Replace the YouTube video ID in the src URL.
+                     
+                     To get the video ID from a YouTube URL:
+                     - Full URL: https://www.youtube.com/watch?v=ABC123xyz
+                     - Video ID: ABC123xyz
+                     - Embed URL: https://www.youtube.com/embed/ABC123xyz
+                     
+                     If you don't have a video yet, you can:
+                     - Keep the placeholder video
+                     - Replace with a placeholder message
+                ============================================ -->
+                <div class="video-container">
+                    <div class="video-embed">
+                        <iframe 
+                            id="process-video"
+                            src="https://www.youtube.com/embed/[YOUR_VIDEO_ID]" 
+                            title="Process Walkthrough Video" 
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                     INSTRUCTION: Video Timestamps
+                     Update timestamps to match your video content.
+                     
+                     For each timestamp:
+                     - timestamp-time: Format as MM:SS
+                     - timestamp-label: Section title in the video
+                     - onclick value: Time in seconds (e.g., 2:45 = 165 seconds)
+                     
+                     Add or remove timestamp-item divs as needed.
+                ============================================ -->
+                <div class="video-timestamps">
+                    <div class="timestamps-title">📑 Jump to Section:</div>
+                    <div class="timestamp-list">
+                        <div class="timestamp-item" onclick="jumpToTimestamp(0)">
+                            <span class="timestamp-time">00:00</span>
+                            <span class="timestamp-label">[Introduction / Opening Section Title]</span>
+                        </div>
+                        <div class="timestamp-item" onclick="jumpToTimestamp(60)">
+                            <span class="timestamp-time">01:00</span>
+                            <span class="timestamp-label">[Section 2 Title]</span>
+                        </div>
+                        <div class="timestamp-item" onclick="jumpToTimestamp(180)">
+                            <span class="timestamp-time">03:00</span>
+                            <span class="timestamp-label">[Section 3 Title]</span>
+                        </div>
+                        <div class="timestamp-item" onclick="jumpToTimestamp(300)">
+                            <span class="timestamp-time">05:00</span>
+                            <span class="timestamp-label">[Section 4 Title]</span>
+                        </div>
+                        <div class="timestamp-item" onclick="jumpToTimestamp(420)">
+                            <span class="timestamp-time">07:00</span>
+                            <span class="timestamp-label">[Conclusion / Final Thoughts]</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                     INSTRUCTION: Documentation PDF Link
+                     Update the href to your actual PDF documentation.
+                     This could be:
+                     - A detailed methodology document
+                     - Technical specifications
+                     - Full analysis report
+                     
+                     If you don't have a PDF, remove this entire <a> element.
+                ============================================ -->
+                <a href="[YOUR_DOCUMENTATION_PDF_LINK]" class="doc-link" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    View Full Documentation (PDF)
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 9: Data Dictionary / KPI Definitions -->
+        <section id="dictionary" class="section">
+            <h2 class="section-title">
+                <span class="section-number">9</span>
+                Data Dictionary / KPI Definitions
+            </h2>
+            <div class="section-content">
+                <p>Key metrics and variables used throughout this analysis:</p>
+                
+                <!-- ============================================
+                     INSTRUCTION: Data Dictionary Table
+                     List all important metrics, variables, and KPIs used in your analysis.
+                     
+                     For each row:
+                     - Metric/Variable: The name of the field or KPI
+                     - Definition: Clear explanation of what it means and how it's calculated
+                     
+                     Add or remove <tr> rows as needed.
+                     Aim for 8-15 key terms.
+                ============================================ -->
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Metric / Variable</th>
+                            <th>Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[Metric 1]</td>
+                            <td>[Definition - what it measures, how it's calculated, units if applicable]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 2]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 3]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 4]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 5]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 6]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 7]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                        <tr>
+                            <td>[Metric 8]</td>
+                            <td>[Definition]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 10: Next Steps -->
+        <section id="next" class="section">
+            <h2 class="section-title">
+                <span class="section-number">10</span>
+                Next Steps
+            </h2>
+            <div class="section-content">
+                <p>Future improvements and extensions planned for this analysis:</p>
+                
+                <!-- ============================================
+                     INSTRUCTION: Next Steps List
+                     List 3-5 future improvements or extensions.
+                     
+                     For each item:
+                     - h4: Short title describing the improvement
+                     - p: 1-2 sentence explanation of what you'd do and why
+                     
+                     Examples:
+                     - Add more data sources
+                     - Build predictive models
+                     - Expand to other markets/segments
+                     - Automate reporting
+                     - Integrate real-time data
+                ============================================ -->
+                <div class="next-steps-list">
+                    <div class="next-step-item">
+                        <div class="step-status"></div>
+                        <div>
+                            <h4>[Next Step 1 Title]</h4>
+                            <p>[Description of what you plan to do and why it would add value]</p>
+                        </div>
+                    </div>
+                    <div class="next-step-item">
+                        <div class="step-status"></div>
+                        <div>
+                            <h4>[Next Step 2 Title]</h4>
+                            <p>[Description]</p>
+                        </div>
+                    </div>
+                    <div class="next-step-item">
+                        <div class="step-status"></div>
+                        <div>
+                            <h4>[Next Step 3 Title]</h4>
+                            <p>[Description]</p>
+                        </div>
+                    </div>
+                    <div class="next-step-item">
+                        <div class="step-status"></div>
+                        <div>
+                            <h4>[Next Step 4 Title]</h4>
+                            <p>[Description]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GitHub Repository Link -->
+        <!-- ============================================
+             INSTRUCTION: GitHub Repository Section
+             Update the href to your actual GitHub repository URL.
+        ============================================ -->
+        <div class="github-section">
+            <div class="github-info">
+                <h4>View Full Project Code</h4>
+                <p>All code, data, and documentation available on GitHub</p>
+            </div>
+            <a href="https://github.com/mariaangelicabaldres/[YOUR_REPO_NAME]" class="github-btn" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View Repository
+            </a>
+        </div>
+
+        <!-- ============================================
+             Project Navigation (Previous / Next)
+             AUTOMATIC NAVIGATION: This will automatically detect which project
+             file you're viewing and link to the previous/next project files
+             in alphabetical order.
+             
+             HOW IT WORKS:
+             1. Reads all .html files from Projects folder
+             2. Sorts them alphabetically (e.g., 1.html, 2a.html, 2b.html, 3.html, 4a.html)
+             3. Finds current file and determines prev/next
+             4. Disables buttons if at start or end
+             
+             SUPPORTED NAMING:
+             - Numbers: 1.html, 2.html, 3.html
+             - Letters: 1a.html, 1b.html, 2a.html
+             - Underscores: 1_analysis.html, 2_report.html
+             - Mixed: project_1.html, project_2a.html
+             
+             NO MANUAL UPDATES NEEDED - Just create new project files
+             and the navigation will automatically work!
+        ============================================ -->
+        <div class="project-nav">
+            <a href="#" id="prevProject" class="nav-btn prev disabled">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Previous Project
+            </a>
+
+            <div class="nav-spacer"></div>
+
+            <a href="#" id="nextProject" class="nav-btn next disabled">
+                Next Project
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Credibility Note -->
+        <!-- ============================================
+             INSTRUCTION: Credibility Note / Disclaimer
+             Write a custom note that explains:
+             - What type of data this is (public dataset, simulated, real client data, etc.)
+             - Any limitations or caveats about the analysis
+             - What would be needed for more accurate results
+             
+             This builds trust and shows analytical maturity.
+             
+             Examples:
+             - For public datasets: "This is a portfolio case study using publicly available [X] data. Recommendations are illustrative and based on available proxies. Actual [Y] would require [Z]."
+             - For simulated data: "This project uses simulated data based on realistic patterns. The methodology and insights would apply to real-world scenarios with actual data."
+             - For anonymized data: "Data has been anonymized to protect privacy. Key patterns and insights remain intact."
+        ============================================ -->
+        <div class="credibility-note">
+            <strong>Note:</strong> [Describe the nature of your data source, any limitations, and what additional data or partnerships would be needed for more accurate/complete analysis. Be transparent about what this analysis can and cannot definitively prove.]
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            © <span id="currentYear"></span> Maria Angelica Baldres. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        // Collapsible toggle
+        function toggleCollapsible(header) {
+            const collapsible = header.parentElement;
+            collapsible.classList.toggle('open');
+        }
+
+        // Video timestamp navigation
+        function jumpToTimestamp(seconds) {
+            const iframe = document.getElementById('process-video');
+            if (iframe) {
+                const currentSrc = iframe.src;
+                // Extract video ID
+                const videoId = currentSrc.match(/embed\/([^?]+)/)[1];
+                // Update src with timestamp
+                iframe.src = `https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1`;
+            }
+        }
+
+        // Copy page link to clipboard
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                // Visual feedback
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Link: ' + url);
+            });
+        }
+
+        // LAST PROJECT TEMPLATE - Next button is always disabled
+        (function initProjectNavigation() {
+            const currentPath = window.location.pathname;
+            const currentFile = currentPath.split('/').pop();
+            const match = currentFile.match(/project_(\d+)\.html/);
+            
+            // Enable Previous button - auto-detect previous number
+            if (match) {
+                const currentNumber = parseInt(match[1]);
+                const prevNumber = currentNumber - 1;
+                const prevFile = 'project_' + prevNumber + '.html';
+                
+                const prevBtn = document.getElementById('prevProject');
+                prevBtn.href = prevFile;
+                prevBtn.classList.remove('disabled');
+                console.log('✅ Previous: ' + prevFile);
+            } else {
+                document.getElementById('prevProject').classList.add('disabled');
+            }
+            
+            // Disable Next button (this is the last project)
+            const nextBtn = document.getElementById('nextProject');
+            nextBtn.href = '#';
+            nextBtn.classList.add('disabled');
+            console.log('➡️ Next: Disabled (last project)');
+        })();
+    </script>
+</body>
+</html>

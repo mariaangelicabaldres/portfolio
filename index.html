@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria Angelica Baldres - Executive Virtual Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f8f8;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --accent: #c9a227;
+            --accent-dark: #b8860b;
+            --border: #e8e8e8;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #161616;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --accent: #c9a227;
+            --accent-dark: #d4af37;
+            --border: #252525;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .sun-icon {
+            display: none;
+        }
+
+        .moon-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .sun-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            display: none;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: transparent;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Light mode: show profile_2, hide others */
+        .profile-light {
+            opacity: 1;
+        }
+
+        .profile-light-hover {
+            opacity: 0;
+        }
+
+        .profile-dark {
+            opacity: 0;
+        }
+
+        .profile-dark-hover {
+            opacity: 0;
+        }
+
+        /* Light mode hover: show profile_2.2 */
+        .profile-image:hover .profile-light {
+            opacity: 0;
+        }
+
+        .profile-image:hover .profile-light-hover {
+            opacity: 1;
+        }
+
+        /* Dark mode: show profile_1, hide others */
+        [data-theme="dark"] .profile-light {
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .profile-light-hover {
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .profile-dark {
+            opacity: 1;
+        }
+
+        [data-theme="dark"] .profile-dark-hover {
+            opacity: 0;
+        }
+
+        /* Dark mode hover: show profile_1.2 */
+        [data-theme="dark"] .profile-image:hover .profile-dark {
+            opacity: 0;
+        }
+
+        [data-theme="dark"] .profile-image:hover .profile-dark-hover {
+            opacity: 1;
+        }
+
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .header-content {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .header-content h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .verified-badge {
+            width: 22px;
+            height: 22px;
+            color: #1d9bf0;
+        }
+
+        .location {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .status-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .status-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .card-title svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-secondary);
+        }
+
+        .view-all {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .view-all:hover {
+            color: var(--text-primary);
+        }
+
+        .view-all svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* About */
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .about-text p {
+            margin-bottom: 16px;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Skills & Expertise */
+        .tech-category {
+            margin-bottom: 20px;
+        }
+
+        .tech-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .tech-category-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--accent);
+        }
+
+        /* Experience Timeline */
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .timeline-item:first-child {
+            padding-top: 0;
+        }
+
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .timeline-item:first-child .timeline-dot {
+            background: var(--text-primary);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content .company {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .timeline-year {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            background: var(--bg-secondary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .project-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .project-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        /* Project Categories */
+        .project-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .category-tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .category-tag:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        /* Languages */
+        .languages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .language-item:hover {
+            background: var(--bg-primary);
+            transform: translateX(4px);
+        }
+
+        .language-item.language-native {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .language-item.language-native:hover {
+            transform: none;
+        }
+
+        .language-arrow {
+            width: 16px;
+            height: 16px;
+            opacity: 0.5;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+
+        .language-item:hover .language-arrow {
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        .language-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .language-level {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-left: auto;
+        }
+
+        /* Certifications */
+        .cert-card {
+            display: block;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .cert-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .cert-card:hover {
+            background: var(--bg-primary);
+            transform: translateX(4px);
+        }
+
+        .cert-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .cert-card .issuer {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Social Section */
+        .social-section {
+            margin-top: 24px;
+        }
+
+        .social-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* Badges */
+        .badges-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .badges-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .badges-nav:hover {
+            opacity: 1;
+            border-color: var(--accent);
+        }
+
+        .badges-nav.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .badges-nav svg {
+            width: 16px;
+            height: 16px;
+            color: var(--text-secondary);
+        }
+
+        .badges-prev {
+            left: 0;
+        }
+
+        .badges-next {
+            right: 0;
+        }
+
+        .badges-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 8px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        .badges-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .badge-item {
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: transparent;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .badge-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
+        }
+
+        .badge-placeholder {
+            font-size: 32px;
+        }
+
+        /* Gallery */
+        .gallery-card {
+            margin-top: 24px;
+        }
+
+        .gallery-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 8px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            width: 100%;
+        }
+
+        .gallery-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--text-tertiary);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+            opacity: 0.8;
+        }
+
+        .gallery-nav:hover {
+            opacity: 1;
+            border-color: var(--accent);
+        }
+
+        .gallery-nav.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .gallery-nav svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .gallery-prev {
+            left: 8px;
+        }
+
+        .gallery-next {
+            right: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-prev {
+                left: -12px;
+            }
+
+            .gallery-next {
+                right: -12px;
+            }
+
+            .gallery-item {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        /* Contact Row */
+        .contact-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 600px) {
+            .contact-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-card-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card-item:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .contact-card-item .arrow {
+            width: 16px;
+            height: 16px;
+            color: var(--text-tertiary);
+        }
+
+        /* Beyond Section */
+        .beyond-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .beyond-text p {
+            margin-bottom: 12px;
+        }
+
+        .beyond-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Contact Row */
+        .contact-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 600px) {
+            .contact-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-card-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card-item:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .contact-card-item .arrow {
+            width: 16px;
+            height: 16px;
+            color: var(--text-tertiary);
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-info svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .contact-info .label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .contact-info .value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Social Links */
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            flex: 0 0 auto;
+        }
+
+        .social-item:hover {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .social-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .social-item span {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .fade-in:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        /* Responsive Header */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .header-content h1 {
+                justify-content: center;
+            }
+
+            .location {
+                justify-content: center;
+            }
+
+            .header-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* Email Modal */
+        .email-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-modal-overlay.active {
+            display: flex;
+        }
+
+        .email-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px 28px;
+            box-shadow: var(--shadow-hover);
+            width: 100%;
+            max-width: 480px;
+            margin: 0 20px;
+            position: relative;
+            animation: modalIn 0.2s ease-out;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(8px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .email-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            font-size: 20px;
+            line-height: 1;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .email-modal-close:hover { color: var(--text-primary); }
+
+        .email-modal h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .email-modal p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+        }
+
+        .email-copy-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .email-copy-row span {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            word-break: break-all;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .copy-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            background: var(--accent);
+            border: none;
+            border-radius: 7px;
+            color: #000;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover { background: var(--accent-dark); }
+
+        .copy-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .copy-btn.copied {
+            background: #22c55e;
+            color: #fff;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header fade-in">
+            <div class="profile-image">
+                <!-- Light mode image (default) -->
+                <img src="Profile/profile_2.png" alt="Maria Angelica Baldres" class="profile-light">
+                <!-- Light mode hover image -->
+                <img src="Profile/profile_2.2.png" alt="Maria Angelica Baldres" class="profile-light-hover">
+                <!-- Dark mode image -->
+                <img src="Profile/profile_1.png" alt="Maria Angelica Baldres" class="profile-dark">
+                <!-- Dark mode hover image -->
+                <img src="Profile/profile_1.2.png" alt="Maria Angelica Baldres" class="profile-dark-hover">
+            </div>
+            <div class="header-content">
+                <h1>
+                    Maria Angelica Baldres
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        style="margin-left: 8px; vertical-align: middle;">
+                        <circle cx="12" cy="12" r="12" fill="#1DA1F2" />
+                        <path d="M7 12.5L10.5 16L17 9" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+
+                </h1>
+                <p class="tagline">Executive Virtual Assistant</p>
+                <div class="header-buttons">
+                    <button class="btn" onclick="showEmailModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        Send Email
+                    </button>
+                    <a href="https://www.linkedin.com/in/mariaangelicabaldres" class="btn" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                
+                <!-- About -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            About
+                        </h2>
+                    </div>
+                    <div class="about-text">
+                        <p>I am an Executive Virtual Assistant with 2+ years of experience supporting founders and operators across business operations, finance, and internal systems. I specialize in bringing structure and clarity to growing businesses by building organized workflows, improving processes, and ensuring operations run efficiently with minimal oversight.</p>
+                        <p>My core expertise lies in systems, reporting, and process optimization. I design and manage tracking systems, dashboards, and structured workflows using tools like spreadsheets and Notion, allowing clients to gain clear visibility into their operations, finances, and performance. Instead of simply completing tasks, I focus on identifying inefficiencies, streamlining processes, and implementing solutions that save time and improve decision-making. My work has consistently eliminated 8+ hours of manual work per week through automation and better systems.</p>
+                        <p>I take a proactive and systems-first approach, thinking ahead, solving problems independently, and ensuring nothing falls through the cracks. I am highly organized, detail-oriented, and reliable, making me a strong partner for businesses that need more than just execution, but consistent and dependable operational support.</p>
+                    </div>
+                </div>
+
+                <!-- Featured Projects -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                <line x1="8" y1="21" x2="16" y2="21" />
+                                <line x1="12" y1="17" x2="12" y2="21" />
+                            </svg>
+                            Featured Projects
+                        </h2>
+                        <a href="projects.html" class="view-all">
+                            View All
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="projects-grid">
+                        <a href="Projects/project_2.html" class="project-card">
+                            <h4>Business Intelligence Reporting System</h4>
+                            <p>Built an automated pipeline that transforms fragmented data sources into executive-ready Weekly, Monthly, and Quarterly business review reports — eliminating 8+ hours of manual work weekly with zero manual processing.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Automation</span>
+                                <span class="project-tag">Reporting</span>
+                                <span class="project-tag">Operations</span>
+                            </div>
+                        </a>
+                        <a href="Projects/project_3.html" class="project-card">
+                            <h4>SRG Financial &amp; Operational Control Analysis</h4>
+                            <p>Reconstructed full financial statements from 153,000+ raw transactions for a retail client — delivering a data-driven expand-or-sell recommendation backed by a DSCR of 2.65× and net worth of $473,425.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Operations</span>
+                                <span class="project-tag">Finance</span>
+                                <span class="project-tag">Analysis</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                                <!-- Skills & Expertise -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                <path d="M2 17l10 5 10-5" />
+                                <path d="M2 12l10 5 10-5" />
+                            </svg>
+                            Skills & Expertise
+                        </h2>
+                    </div>
+                    <div class="about-text">
+                        <p>Explore my full skill set spanning executive support, operations management, communication systems, workflow automation, and business tools — everything needed to keep a founder organised, efficient, and focused on what matters most.</p>
+                    </div>
+                    <a href="skills-and-expertise.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
+                        View All Skills
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Tools & Software -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18"/>
+                                <path d="M9 21V9"/>
+                            </svg>
+                            Tools & Software
+                        </h2>
+                    </div>
+                    <div class="about-text">
+                        <p>Explore my toolkit spanning productivity and project management platforms, communication tools, automation software, spreadsheets, and AI-assisted workflows — the systems I use to keep operations running smoothly for clients.</p>
+                    </div>
+                    <a href="tools-and-software.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
+                        View Complete Toolkit
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Experience -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
+                            Experience
+                        </h2>
+                    </div>
+                    <div class="about-text">
+                        <p>2+ Years as Executive VA • Operations & Systems Builder • Business Owner</p>
+                    </div>
+                    <a href="experience.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
+                        View Full Timeline
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Education -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                                <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                            </svg>
+                            Education
+                        </h2>
+                    </div>
+                    <div class="about-text">
+                        <p>BSBA in Financial Management • Google Project Management Certificate</p>
+                    </div>
+                    <a href="education.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
+                        View Details
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Certifications -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="7" />
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+                            </svg>
+                            Certifications
+                        </h2>
+                        <a href="certifications.html" class="view-all">
+                            View All
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </a>
+                    </div>
+                    <a href="https://www.credly.com/badges/7a16f01d-ec60-4a29-9a63-356bc167055b" class="cert-card" target="_blank">
+                        <h4>Google Project Management Professional Certificate</h4>
+                        <p class="issuer">Google</p>
+                    </a>
+                    <a href="https://www.credly.com/badges/5c716bb4-8b86-430e-9fe3-0373de7be123" class="cert-card" target="_blank">
+                        <h4>Microsoft 365 Fundamentals Specialization</h4>
+                        <p class="issuer">Microsoft</p>
+                    </a>
+                    <a href="https://www.coursera.org/account/accomplishments/specialization/RNF4YBSHFNH1" class="cert-card" target="_blank">
+                        <h4>IBM Business Intelligence (BI) Analyst Professional Certificate</h4>
+                        <p class="issuer">IBM</p>
+                    </a>
+                    <a href="https://coursera.org/share/188bae74c62dd283928c0872cc6ba7dc" class="cert-card" target="_blank">
+                        <h4>IBM Data Analyst Professional Certificate</h4>
+                        <p class="issuer">IBM</p>
+                    </a>
+                </div>
+
+                <!-- Badges -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 15l-2 5l9-9l-5 2l2-5l-9 9l5-2z" />
+                            </svg>
+                            Badges
+                        </h2>
+                    </div>
+                    <div class="badges-container">
+                        <button class="badges-nav badges-prev" onclick="scrollBadges(-1)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="badges-scroll" id="badgesScroll">
+                            <a href="https://www.credly.com/badges/c5706503-298b-42a8-af11-43fa4ee2fb3c/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Applied Data Science Capstone.png"
+                                    alt="Applied Data Science Capstone">
+                            </a>
+                            <a href="https://www.credly.com/badges/9f694193-a3c8-4c86-89f6-b715d9d1a082/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Applied Data Science Specialization.png"
+                                    alt="Applied Data Science Specialization">
+                            </a>
+                            <a href="https://www.credly.com/badges/523edd89-9e1b-4f43-9023-6c3bffb52dd8/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Data Analysis & Visualization Foundations Specialization.png"
+                                    alt="Data Analysis & Visualization Foundations">
+                            </a>
+                            <a href="https://www.credly.com/badges/cbea826d-2a64-491a-bcd5-17ce70af1cbc/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Data Science Fundamentals Specialization.png"
+                                    alt="Data Science Fundamentals">
+                            </a>
+                            <a href="https://www.credly.com/badges/3873a0dc-7e61-4e55-9b27-1d218219a18e/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Data Visualization with Python.png"
+                                    alt="Data Visualization with Python">
+                            </a>
+                            <a href="https://www.credly.com/badges/28e5a50a-2a6e-43bf-a04b-6b67f48d807f/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Google Advanced Data Analytics Certificate.png"
+                                    alt="Google Advanced Data Analytics">
+                            </a>
+                            <a href="https://www.credly.com/badges/5125e735-1225-410e-a377-3e6029720a64/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Google Business Intelligence Certificate.png"
+                                    alt="Google Business Intelligence">
+                            </a>
+                            <a href="https://www.credly.com/badges/75f7b652-a549-4f51-bf8f-8a6f2b93bf26/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Google Data Analytics Professional Certificate.png"
+                                    alt="Google Data Analytics Professional">
+                            </a>
+                            <a href="https://www.credly.com/badges/7a16f01d-ec60-4a29-9a63-356bc167055b"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Google Project Management Professional Certificate.png"
+                                    alt="Google Project Management">
+                            </a>
+                            <a href="https://www.credly.com/badges/add62efc-3a90-4a03-a8c8-09c1e9f5fc78/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Google_University of Illinois' Gies College of Business Dual Credential.png"
+                                    alt="Google U of I Dual Credential">
+                            </a>
+                            <a href="https://www.credly.com/badges/ee8116b6-92b0-4ba0-a7cb-edcb2817b86f/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/IBM Data Analyst Professional Certificate.png"
+                                    alt="IBM Data Analyst Professional">
+                            </a>
+                            <a href="https://www.credly.com/badges/fe208293-701a-4829-9354-9dff652865bd/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/IBM Data Science Professional Certificate.png"
+                                    alt="IBM Data Science Professional">
+                            </a>
+                            <a href="https://www.credly.com/badges/c1151ca7-762f-4973-a61c-2fcf3abd7688"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Meta Data Analyst Professional Certificate.png"
+                                    alt="Meta Data Analyst Professional">
+                            </a>
+                            <a href="https://www.credly.com/badges/5c716bb4-8b86-430e-9fe3-0373de7be123"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Microsoft 365 Fundamentals Specialization.png"
+                                    alt="Microsoft 365 Fundamentals">
+                            </a>
+                            <a href="https://www.credly.com/badges/5429684d-7d68-4b9a-8d20-a7a2c0fb97ca/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/Statistics for Data Science with Python.png"
+                                    alt="Statistics for Data Science with Python">
+                            </a>
+                            <a href="https://www.credly.com/badges/a528afcd-c717-43d0-8c24-54a875b04a1a/public_url"
+                                class="badge-item" target="_blank">
+                                <img src="Credly Badges/IBM Business Intelligence (BI) Analyst Professional Certificate (V3).png"
+                                    alt="IBM Business Intelligence (BI) Analyst Professional Certificate">
+                            </a>
+                        </div>
+                        <button class="badges-nav badges-next" onclick="scrollBadges(1)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>
+                            Languages
+                        </h2>
+                    </div>
+                    <div class="languages-list">
+                        <div class="language-item language-native">
+                            <span class="language-name">English</span>
+                        </div>
+                        <div class="language-item language-native">
+                            <span class="language-name">Tagalog</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9 9a3 3 0 1 1 6 0c0 2-3 2-3 4" />
+                                <circle cx="12" cy="17" r="1" />
+                            </svg>
+                            FAQ
+                        </h2>
+                        <a href="faq.html" class="view-all">
+                            View
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="about-text">
+                        Answers to common questions about how I work, my communication style, the tools I use, availability, and what it's like to work with me as your virtual assistant.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="card fade-in">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                    Social Links
+                </h2>
+            </div>
+            <div class="social-grid">
+                <a href="https://www.linkedin.com/in/mariaangelicabaldres/" class="social-item" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/mariaangelicabaldres" class="social-item" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.credly.com/users/maria-angelica-baldres" class="social-item" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.182c5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818-5.423 0-9.818-4.395-9.818-9.818 0-5.423 4.395-9.818 9.818-9.818zM9.545 6.545L6.546 12l2.999 5.455h5.91L18.454 12l-2.999-5.455h-5.91zm.91 1.637h3.09L15.273 12l-1.728 3.818h-3.09L8.727 12l1.728-3.818z"/>
+                    </svg>
+                    <span>Credly</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="card gallery-card fade-in">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    Gallery
+                </h2>
+            </div>
+            <div class="gallery-container">
+                <button class="gallery-nav gallery-prev" onclick="scrollGallery(-1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <div class="gallery-scroll" id="galleryScroll">
+                    <div class="gallery-item">
+                        <img src="Gallery/1.png" alt="Gallery image 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/2.png" alt="Gallery image 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/3.png" alt="Gallery image 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/4.png" alt="Gallery image 4">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/5.png" alt="Gallery image 5">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/6.png" alt="Gallery image 6">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/7.png" alt="Gallery image 7">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Gallery/8.png" alt="Gallery image 8">
+                    </div>
+                </div>
+                <button class="gallery-nav gallery-next" onclick="scrollGallery(1)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© <span id="currentYear"></span> Maria Angelica Baldres. All rights reserved. | <a href="privacy_policy.html" style="color: var(--text-secondary); text-decoration: none;">Privacy Policy</a></p>
+        </footer>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="email-modal-overlay" id="emailModal" onclick="closeEmailModalOutside(event)">
+        <div class="email-modal">
+            <button class="email-modal-close" onclick="closeEmailModal()" aria-label="Close">&times;</button>
+            <h3>Get in Touch</h3>
+            <p>Copy my email address below to send me a message.</p>
+            <div class="email-copy-row">
+                <span id="emailAddress">baldresmariaangelica@gmail.com</span>
+                <button class="copy-btn" id="copyBtn" onclick="copyEmail()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    Copy
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        // Email modal
+        function showEmailModal() {
+            document.getElementById('emailModal').classList.add('active');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('active');
+            // Reset copy button
+            const btn = document.getElementById('copyBtn');
+            btn.classList.remove('copied');
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+        }
+
+        function closeEmailModalOutside(event) {
+            if (event.target === document.getElementById('emailModal')) {
+                closeEmailModal();
+            }
+        }
+
+        function copyEmail() {
+            const email = document.getElementById('emailAddress').textContent;
+            navigator.clipboard.writeText(email).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.classList.add('copied');
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+                }, 2500);
+            });
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeEmailModal();
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme on page load (default to light)
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        // Gallery scroll function
+        function scrollGallery(direction) {
+            const gallery = document.getElementById('galleryScroll');
+            const scrollAmount = 220;
+            gallery.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+
+        // Badges scroll function
+        function scrollBadges(direction) {
+            const badges = document.getElementById('badgesScroll');
+            const scrollAmount = 120;
+            badges.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+
+        // Update arrow visibility based on scroll position
+        function updateScrollArrows(container, prevBtn, nextBtn) {
+            const isAtStart = container.scrollLeft <= 5;
+            const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 5;
+
+            if (prevBtn) prevBtn.classList.toggle('hidden', isAtStart);
+            if (nextBtn) nextBtn.classList.toggle('hidden', isAtEnd);
+        }
+
+        // Initialize scroll listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Gallery scroll detection
+            const galleryScroll = document.getElementById('galleryScroll');
+            const galleryPrev = document.querySelector('.gallery-prev');
+            const galleryNext = document.querySelector('.gallery-next');
+
+            if (galleryScroll) {
+                updateScrollArrows(galleryScroll, galleryPrev, galleryNext);
+                galleryScroll.addEventListener('scroll', () => {
+                    updateScrollArrows(galleryScroll, galleryPrev, galleryNext);
+                });
+            }
+
+            // Badges scroll detection
+            const badgesScroll = document.getElementById('badgesScroll');
+            const badgesPrev = document.querySelector('.badges-prev');
+            const badgesNext = document.querySelector('.badges-next');
+
+            if (badgesScroll) {
+                updateScrollArrows(badgesScroll, badgesPrev, badgesNext);
+                badgesScroll.addEventListener('scroll', () => {
+                    updateScrollArrows(badgesScroll, badgesPrev, badgesNext);
+                });
+            }
+
+            // Handle project category links with smooth scroll and offset
+            const categoryLinks = document.querySelectorAll('.category-tag[href*="#"]');
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Check if it's a link to projects.html with a hash
+                    if (href.includes('projects.html#')) {
+                        // Let the browser handle
+                        // Let the browser handle navigation to projects.html
+                        // The projects.html page will handle the scroll offset
+                        return;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
