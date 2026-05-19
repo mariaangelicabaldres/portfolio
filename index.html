@@ -1,1829 +1,1613 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maria Angelica Baldres - Executive Virtual Assistant</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f8f8;
-            --bg-card: #ffffff;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --text-tertiary: #999999;
-            --accent: #c9a227;
-            --accent-dark: #b8860b;
-            --border: #e8e8e8;
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-card: #161616;
-            --text-primary: #f5f5f5;
-            --text-secondary: #a0a0a0;
-            --text-tertiary: #666666;
-            --accent: #c9a227;
-            --accent-dark: #d4af37;
-            --border: #252525;
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 100;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 8px 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        .theme-toggle svg {
-            width: 18px;
-            height: 18px;
-            color: var(--text-secondary);
-        }
-
-        .sun-icon {
-            display: none;
-        }
-
-        .moon-icon {
-            display: block;
-        }
-
-        [data-theme="dark"] .sun-icon {
-            display: block;
-        }
-
-        [data-theme="dark"] .moon-icon {
-            display: none;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            align-items: flex-start;
-            gap: 32px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
-        .profile-image {
-            width: 160px;
-            height: 160px;
-            border-radius: 16px;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: transparent;
-            border: 1px solid var(--border);
-            position: relative;
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        /* Light mode: show profile_2, hide others */
-        .profile-light {
-            opacity: 1;
-        }
-
-        .profile-light-hover {
-            opacity: 0;
-        }
-
-        .profile-dark {
-            opacity: 0;
-        }
-
-        .profile-dark-hover {
-            opacity: 0;
-        }
-
-        /* Light mode hover: show profile_2.2 */
-        .profile-image:hover .profile-light {
-            opacity: 0;
-        }
-
-        .profile-image:hover .profile-light-hover {
-            opacity: 1;
-        }
-
-        /* Dark mode: show profile_1, hide others */
-        [data-theme="dark"] .profile-light {
-            opacity: 0;
-        }
-
-        [data-theme="dark"] .profile-light-hover {
-            opacity: 0;
-        }
-
-        [data-theme="dark"] .profile-dark {
-            opacity: 1;
-        }
-
-        [data-theme="dark"] .profile-dark-hover {
-            opacity: 0;
-        }
-
-        /* Dark mode hover: show profile_1.2 */
-        [data-theme="dark"] .profile-image:hover .profile-dark {
-            opacity: 0;
-        }
-
-        [data-theme="dark"] .profile-image:hover .profile-dark-hover {
-            opacity: 1;
-        }
-
-        .profile-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: 600;
-            color: var(--accent);
-            background: var(--bg-secondary);
-        }
-
-        .header-content {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .header-content h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .verified-badge {
-            width: 22px;
-            height: 22px;
-            color: #1d9bf0;
-        }
-
-        .location {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .tagline {
-            font-size: 18px;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-        }
-
-        .status-badges {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            font-size: 13px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .status-badge svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .header-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            border-color: var(--accent-dark);
-        }
-
-        .btn svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Main Grid */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 24px;
-        }
-
-        @media (max-width: 900px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .card-title svg {
-            width: 20px;
-            height: 20px;
-            color: var(--text-secondary);
-        }
-
-        .view-all {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .view-all:hover {
-            color: var(--text-primary);
-        }
-
-        .view-all svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* About */
-        .about-text {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .about-text p {
-            margin-bottom: 16px;
-        }
-
-        .about-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Skills & Expertise */
-        .tech-category {
-            margin-bottom: 20px;
-        }
-
-        .tech-category:last-child {
-            margin-bottom: 0;
-        }
-
-        .tech-category-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-tertiary);
-            margin-bottom: 12px;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tech-tag {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .tech-tag:hover {
-            border-color: var(--accent);
-        }
-
-        /* Experience Timeline */
-        .timeline-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .timeline-item:first-child {
-            padding-top: 0;
-        }
-
-        .timeline-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--border);
-            margin-top: 6px;
-            flex-shrink: 0;
-        }
-
-        .timeline-item:first-child .timeline-dot {
-            background: var(--text-primary);
-        }
-
-        .timeline-content {
-            flex: 1;
-        }
-
-        .timeline-content h4 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .timeline-content .company {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .timeline-year {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            background: var(--bg-secondary);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .project-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-            display: block;
-        }
-
-        .project-card:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
-        }
-
-        .project-card h4 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .project-card p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-bottom: 14px;
-            line-height: 1.5;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .project-tag {
-            background: var(--bg-card);
-            color: var(--text-secondary);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            border: 1px solid var(--border);
-        }
-
-        .project-number {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        /* Project Categories */
-        .project-categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .category-tag {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            text-decoration: none;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-
-        .category-tag:hover {
-            background: var(--accent);
-            color: #000;
-            border-color: var(--accent);
-        }
-
-        /* Languages */
-        .languages-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .language-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .language-item:hover {
-            background: var(--bg-primary);
-            transform: translateX(4px);
-        }
-
-        .language-item.language-native {
-            cursor: default;
-            pointer-events: none;
-        }
-
-        .language-item.language-native:hover {
-            transform: none;
-        }
-
-        .language-arrow {
-            width: 16px;
-            height: 16px;
-            opacity: 0.5;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            margin-left: 8px;
-        }
-
-        .language-item:hover .language-arrow {
-            opacity: 1;
-            transform: translateX(2px);
-        }
-
-        .language-name {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .language-level {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-left: auto;
-        }
-
-        /* Certifications */
-        .cert-card {
-            display: block;
-            padding: 12px 16px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-        }
-
-        .cert-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .cert-card:hover {
-            background: var(--bg-primary);
-            transform: translateX(4px);
-        }
-
-        .cert-card h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .cert-card .issuer {
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        /* Social Section */
-        .social-section {
-            margin-top: 24px;
-        }
-
-        .social-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        /* Badges */
-        .badges-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .badges-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            transition: all 0.2s ease;
-            opacity: 0.7;
-        }
-
-        .badges-nav:hover {
-            opacity: 1;
-            border-color: var(--accent);
-        }
-
-        .badges-nav.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .badges-nav svg {
-            width: 16px;
-            height: 16px;
-            color: var(--text-secondary);
-        }
-
-        .badges-prev {
-            left: 0;
-        }
-
-        .badges-next {
-            right: 0;
-        }
-
-        .badges-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 8px 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            scroll-behavior: smooth;
-            width: 100%;
-        }
-
-        .badges-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .badge-item {
-            flex-shrink: 0;
-            width: 100px;
-            height: 100px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: transparent;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .badge-item:hover {
-            transform: scale(1.05);
-            border-color: var(--accent);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .badge-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 4px;
-        }
-
-        .badge-placeholder {
-            font-size: 32px;
-        }
-
-        /* Gallery */
-        .gallery-card {
-            margin-top: 24px;
-        }
-
-        .gallery-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .gallery-scroll {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 8px 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            width: 100%;
-        }
-
-        .gallery-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .gallery-item {
-            flex-shrink: 0;
-            width: 200px;
-            height: 200px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: var(--text-tertiary);
-        }
-
-        .gallery-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.2s ease;
-            opacity: 0.8;
-        }
-
-        .gallery-nav:hover {
-            opacity: 1;
-            border-color: var(--accent);
-        }
-
-        .gallery-nav.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .gallery-nav svg {
-            width: 18px;
-            height: 18px;
-            color: var(--text-secondary);
-        }
-
-        .gallery-prev {
-            left: 8px;
-        }
-
-        .gallery-next {
-            right: 8px;
-        }
-
-        @media (max-width: 600px) {
-            .gallery-prev {
-                left: -12px;
-            }
-
-            .gallery-next {
-                right: -12px;
-            }
-
-            .gallery-item {
-                width: 160px;
-                height: 160px;
-            }
-        }
-
-        /* Contact Row */
-        .contact-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        @media (max-width: 600px) {
-            .contact-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .contact-card-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .contact-card-item:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .contact-card-item .arrow {
-            width: 16px;
-            height: 16px;
-            color: var(--text-tertiary);
-        }
-
-        /* Beyond Section */
-        .beyond-text {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .beyond-text p {
-            margin-bottom: 12px;
-        }
-
-        .beyond-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Contact Row */
-        .contact-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        @media (max-width: 600px) {
-            .contact-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .contact-card-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .contact-card-item:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .contact-card-item .arrow {
-            width: 16px;
-            height: 16px;
-            color: var(--text-tertiary);
-        }
-
-        .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .contact-info svg {
-            width: 18px;
-            height: 18px;
-            color: var(--text-secondary);
-        }
-
-        .contact-info .label {
-            font-size: 12px;
-            color: var(--text-tertiary);
-        }
-
-        .contact-info .value {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* Social Links */
-        .social-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.2s ease;
-            flex: 0 0 auto;
-        }
-
-        .social-item:hover {
-            border-color: var(--accent);
-            background: var(--bg-secondary);
-        }
-
-        .social-item svg {
-            width: 18px;
-            height: 18px;
-            color: var(--text-secondary);
-        }
-
-        .social-item span {
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0 20px;
-            color: var(--text-tertiary);
-            font-size: 14px;
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .fade-in:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .fade-in:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .fade-in:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        /* Responsive Header */
-        @media (max-width: 600px) {
-            .header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .header-content h1 {
-                justify-content: center;
-            }
-
-            .location {
-                justify-content: center;
-            }
-
-            .header-buttons {
-                justify-content: center;
-            }
-        }
-
-        /* Email Modal */
-        .email-modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .email-modal-overlay.active {
-            display: flex;
-        }
-
-        .email-modal {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px 28px 28px;
-            box-shadow: var(--shadow-hover);
-            width: 100%;
-            max-width: 480px;
-            margin: 0 20px;
-            position: relative;
-            animation: modalIn 0.2s ease-out;
-        }
-
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.95) translateY(8px); }
-            to   { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .email-modal-close {
-            position: absolute;
-            top: 14px;
-            right: 16px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-tertiary);
-            font-size: 20px;
-            line-height: 1;
-            padding: 4px;
-            transition: color 0.2s;
-        }
-
-        .email-modal-close:hover { color: var(--text-primary); }
-
-        .email-modal h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--text-primary);
-        }
-
-        .email-modal p {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-        }
-
-        .email-copy-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px 14px;
-        }
-
-        .email-copy-row span {
-            flex: 1;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-            word-break: break-all;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .copy-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 7px 14px;
-            background: var(--accent);
-            border: none;
-            border-radius: 7px;
-            color: #000;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .copy-btn:hover { background: var(--accent-dark); }
-
-        .copy-btn svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .copy-btn.copied {
-            background: #22c55e;
-            color: #fff;
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maria Angelica Baldres — Real Estate Investment & Performance Intelligence</title>
+<meta name="description" content="Real estate investment and performance intelligence strategist. I help investors and operators turn scattered property data into clearer investment, operating, and portfolio decisions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1e35;
+  --navy-mid: #162c4a;
+  --navy-light: #1e3d5c;
+  --gold: #b8975a;
+  --gold-light: #cead77;
+  --gold-pale: #f2e8d5;
+  --plum: #2a1f38;
+  --cream: #faf8f4;
+  --warm-white: #f5f2ec;
+  --warm-mid: #ece8de;
+  --charcoal: #2d2d2d;
+  --charcoal-mid: #4a4a4a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #7a7068;
+  --border: #ddd8cc;
+  --border-light: #eae6de;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --max-width: 1100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.75;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── NAV ──────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(250, 248, 244, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nav-brand-name {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.nav-brand-sub {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover { color: var(--navy); }
+
+.nav-cta {
+  font-size: 0.66rem !important;
+  letter-spacing: 0.12em !important;
+  color: var(--navy) !important;
+  border: 1px solid var(--navy) !important;
+  padding: 0.4rem 1rem;
+  transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+.nav-cta:hover {
+  background: var(--navy) !important;
+  color: var(--cream) !important;
+}
+
+.nav-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.nav-mobile-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--navy);
+  transition: 0.2s;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 2rem 100px;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(140deg, transparent 30%, var(--warm-mid) 100%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.hero-deco {
+  position: absolute;
+  top: 18%;
+  right: 8%;
+  font-family: var(--serif);
+  font-size: clamp(8rem, 16vw, 18rem);
+  font-weight: 300;
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(15, 30, 53, 0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.25rem;
+}
+
+.hero-eyebrow-line {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.hero-eyebrow-text {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.18;
+  color: var(--navy);
+  margin-bottom: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--navy-mid);
+}
+
+.hero-sub {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.75rem;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  transition: background 0.2s ease;
+}
+
+.btn-primary:hover { background: var(--navy-light); }
+
+.btn-secondary {
+  display: inline-block;
+  color: var(--navy);
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--navy);
+  background: var(--warm-white);
+}
+
+.btn-gold {
+  display: inline-block;
+  background: transparent;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid var(--gold);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-gold:hover {
+  background: var(--gold);
+  color: var(--cream);
+}
+
+.hero-credibility {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-credibility span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-credibility span::after {
+  content: '·';
+  color: var(--gold);
+  font-size: 0.9em;
+}
+
+.hero-credibility span:last-child::after { display: none; }
+
+/* Hero side panel */
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem;
+  background: var(--warm-white);
+  border: 1px solid var(--border-light);
+  position: relative;
+}
+
+.hero-side::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+}
+
+.hero-side-label {
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.hero-side-item {
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hero-side-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hero-side-item-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.hero-side-item-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.hero-side-item-title a:hover { color: var(--gold); }
+
+.hero-side-item-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ── SHARED SECTION STYLES ────────────────────────────────────── */
+section { padding: 100px 2rem; }
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.section-label-line {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.section-label-text {
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.section-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.section-heading em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* ── PROBLEM ──────────────────────────────────────────────────── */
+.problem {
+  background: var(--warm-white);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.problem-left {}
+
+.problem-left .section-heading {
+  margin-bottom: 2rem;
+}
+
+.problem-copy {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.problem-copy p + p { margin-top: 1.25rem; }
+
+.problem-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 0.5rem;
+}
+
+.problem-card {
+  background: var(--cream);
+  border: 1px solid var(--border-light);
+  padding: 1.75rem 2rem;
+  position: relative;
+}
+
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.problem-card:hover::before { background: var(--gold); }
+
+.problem-card-num {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.problem-card-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+/* ── SERVICES ─────────────────────────────────────────────────── */
+.services { background: var(--cream); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-light);
+  border: 1px solid var(--border-light);
+}
+
+.service-card {
+  background: var(--cream);
+  padding: 2.75rem;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.service-card:hover { background: var(--warm-white); }
+
+.service-card-letter {
+  font-family: var(--serif);
+  font-size: 3.5rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(15, 30, 53, 0.07);
+  line-height: 1;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.service-card-title {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.service-card-copy {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.service-card-meta {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.service-card-meta-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+  font-weight: 400;
+}
+
+.service-card-meta-text {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.service-card-deliverables {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.service-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  background: var(--warm-mid);
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* ── HOW I WORK ───────────────────────────────────────────────── */
+.how {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.how .section-label-text { color: var(--gold-light); }
+.how .section-label-line { background: var(--gold-light); }
+
+.how .section-heading { color: var(--cream); }
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-top: 0.5rem;
+}
+
+.how-step {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+}
+
+.how-step:last-child { border-right: none; }
+
+.how-step-num {
+  font-family: var(--serif);
+  font-size: 2.25rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.7;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.04em;
+}
+
+.how-step-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 0.85rem;
+  line-height: 1.25;
+}
+
+.how-step-copy {
+  font-size: 0.85rem;
+  color: rgba(250, 248, 244, 0.55);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* ── CASE STUDIES ─────────────────────────────────────────────── */
+.work { background: var(--warm-white); }
+
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.work-card {
+  background: var(--cream);
+  border: 1px solid var(--border-light);
+  padding: 2.5rem;
+  position: relative;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.work-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.work-card-badge {
+  display: inline-block;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.22rem 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.work-card-title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 0.85rem;
+  line-height: 1.25;
+}
+
+.work-card-row {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.work-card-field-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 400;
+}
+
+.work-card-field-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── LUNAHARAYA ───────────────────────────────────────────────── */
+.luna {
+  background: var(--cream);
+  border-top: 1px solid var(--border-light);
+}
+
+.luna-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.luna-left {}
+
+.luna-left .section-heading { margin-bottom: 1.5rem; }
+
+.luna-copy {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.luna-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.luna-right {
+  background: var(--warm-white);
+  border: 1px solid var(--border-light);
+  padding: 3rem;
+  position: relative;
+}
+
+.luna-right::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.luna-brand {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.luna-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+
+.luna-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.luna-pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.luna-pillar:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.luna-pillar-num {
+  font-size: 0.6rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+  font-weight: 400;
+}
+
+.luna-pillar-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.3;
+}
+
+.luna-pillar-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-top: 0.2rem;
+}
+
+/* ── ABOUT ────────────────────────────────────────────────────── */
+.about {
+  background: var(--warm-white);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-copy {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.about-copy p + p { margin-top: 1.25rem; }
+
+.about-right {}
+
+.capabilities-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.capabilities-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.capabilities-list li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 300;
+}
+
+.capabilities-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── TOOLS ────────────────────────────────────────────────────── */
+.tools { background: var(--cream); }
+
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.tool-chip {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  padding: 0.45rem 1rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.tool-chip:hover {
+  background: var(--warm-mid);
+  border-color: var(--navy);
+}
+
+/* ── CONTACT ──────────────────────────────────────────────────── */
+.contact {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.contact-inner {
+  max-width: 680px;
+}
+
+.contact .section-label-text { color: var(--gold-light); }
+.contact .section-label-line { background: var(--gold-light); }
+
+.contact .section-heading { color: var(--cream); margin-bottom: 1.5rem; }
+
+.contact-copy {
+  font-size: 0.95rem;
+  color: rgba(250,248,244,0.65);
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.contact-email-row {
+  margin-bottom: 2.5rem;
+}
+
+.contact-email-box {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--gold);
+  padding: 1.1rem 2.5rem;
+  cursor: default;
+}
+
+.contact-email-box-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.contact-email-box-addr {
+  font-size: 0.78rem;
+  color: rgba(250,248,244,0.5);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.contact-note {
+  font-size: 0.78rem;
+  color: rgba(250,248,244,0.35);
+  line-height: 1.65;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.contact-note a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────── */
+footer {
+  background: #080f1c;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 3rem 2rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 2rem;
+}
+
+.footer-brand-name {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.footer-brand-sub {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--cream); }
+
+.footer-bottom {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-social-link:hover { color: var(--gold-light); }
+
+.footer-social-link svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.footer-copy {
+  font-size: 0.68rem;
+  color: rgba(250,248,244,0.4);
+  letter-spacing: 0.04em;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-deco { display: none; }
+  .problem-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .work-grid { grid-template-columns: 1fr; }
+  .luna-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: flex; }
+}
+
+@media (max-width: 600px) {
+  section { padding: 70px 1.25rem; }
+  nav { padding: 0 1.25rem; }
+  .hero { padding: 100px 1.25rem 70px; }
+  .how-grid { grid-template-columns: 1fr; }
+  .how-step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .how-step:last-child { border-bottom: none; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary { width: 100%; text-align: center; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+/* mobile nav open state */
+nav.open .nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  background: var(--cream);
+  padding: 1.5rem 2rem 2rem;
+  border-bottom: 1px solid var(--border-light);
+  z-index: 199;
+}
+</style>
 </head>
-
 <body>
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5" />
-            <path
-                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-        </svg>
-        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <span class="nav-brand-name">Maria Angelica Baldres</span>
+      <span class="nav-brand-sub">Real Estate Intelligence</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="https://lunaharaya.com" target="_blank">Lunaharaya</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
     </button>
+  </div>
+</nav>
 
-    <div class="container">
-        <!-- Header -->
-        <header class="header fade-in">
-            <div class="profile-image">
-                <!-- Light mode image (default) -->
-                <img src="Profile/profile_2.png" alt="Maria Angelica Baldres" class="profile-light">
-                <!-- Light mode hover image -->
-                <img src="Profile/profile_2.2.png" alt="Maria Angelica Baldres" class="profile-light-hover">
-                <!-- Dark mode image -->
-                <img src="Profile/profile_1.png" alt="Maria Angelica Baldres" class="profile-dark">
-                <!-- Dark mode hover image -->
-                <img src="Profile/profile_1.2.png" alt="Maria Angelica Baldres" class="profile-dark-hover">
-            </div>
-            <div class="header-content">
-                <h1>
-                    Maria Angelica Baldres
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        style="margin-left: 8px; vertical-align: middle;">
-                        <circle cx="12" cy="12" r="12" fill="#1DA1F2" />
-                        <path d="M7 12.5L10.5 16L17 9" stroke="white" stroke-width="2.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-
-                </h1>
-                <p class="tagline">Executive Virtual Assistant</p>
-                <div class="header-buttons">
-                    <button class="btn" onclick="showEmailModal()">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                            <polyline points="22,6 12,13 2,6" />
-                        </svg>
-                        Send Email
-                    </button>
-                    <a href="https://www.linkedin.com/in/mariaangelicabaldres" class="btn" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
-                        LinkedIn
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Grid -->
-        <div class="main-grid">
-            <!-- Left Column -->
-            <div class="left-column">
-                
-                <!-- About -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                <circle cx="12" cy="7" r="4" />
-                            </svg>
-                            About
-                        </h2>
-                    </div>
-                    <div class="about-text">
-                        <p>I am an Executive Virtual Assistant with years of experience supporting founders and operators across business operations, finance, and internal systems. I specialize in bringing structure and clarity to growing businesses by building organized workflows, improving processes, and ensuring operations run efficiently with minimal oversight.</p>
-                        <p>My core expertise lies in systems, reporting, and process optimization. I design and manage tracking systems, dashboards, and structured workflows using tools like spreadsheets and Notion, allowing clients to gain clear visibility into their operations, finances, and performance. Instead of simply completing tasks, I focus on identifying inefficiencies, streamlining processes, and implementing solutions that save time and improve decision-making. My work has consistently eliminated 8+ hours of manual work per week through automation and better systems.</p>
-                        <p>I take a proactive and systems-first approach, thinking ahead, solving problems independently, and ensuring nothing falls through the cracks. I am highly organized, detail-oriented, and reliable, making me a strong partner for businesses that need more than just execution, but consistent and dependable operational support.</p>
-                    </div>
-                </div>
-
-                <!-- Featured Projects -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                                <line x1="8" y1="21" x2="16" y2="21" />
-                                <line x1="12" y1="17" x2="12" y2="21" />
-                            </svg>
-                            Featured Projects
-                        </h2>
-                        <a href="projects.html" class="view-all">
-                            View All
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="projects-grid">
-                        <a href="Projects/project_2.html" class="project-card">
-                            <h4>Business Intelligence Reporting System</h4>
-                            <p>Built an automated pipeline that transforms fragmented data sources into executive-ready Weekly, Monthly, and Quarterly business review reports — eliminating 8+ hours of manual work weekly with zero manual processing.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Automation</span>
-                                <span class="project-tag">Reporting</span>
-                                <span class="project-tag">Operations</span>
-                            </div>
-                        </a>
-                        <a href="Projects/project_3.html" class="project-card">
-                            <h4>SRG Financial &amp; Operational Control Analysis</h4>
-                            <p>Reconstructed full financial statements from 153,000+ raw transactions for a retail client — delivering a data-driven expand-or-sell recommendation backed by a DSCR of 2.65× and net worth of $473,425.</p>
-                            <div class="project-tags">
-                                <span class="project-tag">Operations</span>
-                                <span class="project-tag">Finance</span>
-                                <span class="project-tag">Analysis</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                                <!-- Skills & Expertise -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                                <path d="M2 17l10 5 10-5" />
-                                <path d="M2 12l10 5 10-5" />
-                            </svg>
-                            Skills & Expertise
-                        </h2>
-                    </div>
-                    <div class="about-text">
-                        <p>Explore my full skill set spanning executive support, operations management, communication systems, workflow automation, and business tools — everything needed to keep a founder organised, efficient, and focused on what matters most.</p>
-                    </div>
-                    <a href="skills-and-expertise.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
-                        View All Skills
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Tools & Software -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                <path d="M3 9h18"/>
-                                <path d="M9 21V9"/>
-                            </svg>
-                            Tools & Software
-                        </h2>
-                    </div>
-                    <div class="about-text">
-                        <p>Explore my toolkit spanning productivity and project management platforms, communication tools, automation software, spreadsheets, and AI-assisted workflows — the systems I use to keep operations running smoothly for clients.</p>
-                    </div>
-                    <a href="tools-and-software.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
-                        View Complete Toolkit
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </a>
-                </div>
-
-            </div>
-
-            <!-- Right Column -->
-            <div class="right-column">
-                <!-- Experience -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                            </svg>
-                            Experience
-                        </h2>
-                    </div>
-                    <div class="about-text">
-                        <p>2+ Years as Executive VA • Operations & Systems Builder • Business Owner</p>
-                    </div>
-                    <a href="experience.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
-                        View Full Timeline
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Education -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                                <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                            </svg>
-                            Education
-                        </h2>
-                    </div>
-                    <div class="about-text">
-                        <p>BSBA in Financial Management • Google Project Management Certificate</p>
-                    </div>
-                    <a href="education.html" class="view-all" style="display: inline-flex; margin-top: 16px;">
-                        View Details
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Certifications -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="8" r="7" />
-                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-                            </svg>
-                            Certifications
-                        </h2>
-                        <a href="certifications.html" class="view-all">
-                            View All
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </a>
-                    </div>
-                    <a href="https://www.coursera.org/account/accomplishments/professional-cert/certificate/NE8SCGHUT03T" class="cert-card" target="_blank">
-                        <h4>Google Project Management Professional Certificate</h4>
-                        <p class="issuer">Google</p>
-                    </a>
-                    <a href="https://www.coursera.org/account/accomplishments/specialization/RNF4YBSHFNH1" class="cert-card" target="_blank">
-                        <h4>IBM Business Intelligence (BI) Analyst Professional Certificate</h4>
-                        <p class="issuer">IBM</p>
-                    </a>
-                    <a href="https://coursera.org/share/188bae74c62dd283928c0872cc6ba7dc" class="cert-card" target="_blank">
-                        <h4>IBM Data Analyst Professional Certificate</h4>
-                        <p class="issuer">IBM</p>
-                    </a>
-                </div>
-
-                <!-- Badges -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 15l-2 5l9-9l-5 2l2-5l-9 9l5-2z" />
-                            </svg>
-                            Badges
-                        </h2>
-                    </div>
-                    <div class="badges-container">
-                        <button class="badges-nav badges-prev" onclick="scrollBadges(-1)">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M15 18l-6-6 6-6" />
-                            </svg>
-                        </button>
-                        <div class="badges-scroll" id="badgesScroll">
-                            <a href="https://www.credly.com/badges/c5706503-298b-42a8-af11-43fa4ee2fb3c/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Applied Data Science Capstone.png"
-                                    alt="Applied Data Science Capstone">
-                            </a>
-                            <a href="https://www.credly.com/badges/9f694193-a3c8-4c86-89f6-b715d9d1a082/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Applied Data Science Specialization.png"
-                                    alt="Applied Data Science Specialization">
-                            </a>
-                            <a href="https://www.credly.com/badges/523edd89-9e1b-4f43-9023-6c3bffb52dd8/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Data Analysis & Visualization Foundations Specialization.png"
-                                    alt="Data Analysis & Visualization Foundations">
-                            </a>
-                            <a href="https://www.credly.com/badges/cbea826d-2a64-491a-bcd5-17ce70af1cbc/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Data Science Fundamentals Specialization.png"
-                                    alt="Data Science Fundamentals">
-                            </a>
-                            <a href="https://www.credly.com/badges/3873a0dc-7e61-4e55-9b27-1d218219a18e/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Data Visualization with Python.png"
-                                    alt="Data Visualization with Python">
-                            </a>
-                            <a href="https://www.credly.com/badges/28e5a50a-2a6e-43bf-a04b-6b67f48d807f/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Google Advanced Data Analytics Certificate.png"
-                                    alt="Google Advanced Data Analytics">
-                            </a>
-                            <a href="https://www.credly.com/badges/5125e735-1225-410e-a377-3e6029720a64/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Google Business Intelligence Certificate.png"
-                                    alt="Google Business Intelligence">
-                            </a>
-                            <a href="https://www.credly.com/badges/75f7b652-a549-4f51-bf8f-8a6f2b93bf26/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Google Data Analytics Professional Certificate.png"
-                                    alt="Google Data Analytics Professional">
-                            </a>
-                            <a href="https://www.credly.com/badges/7a16f01d-ec60-4a29-9a63-356bc167055b"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Google Project Management Professional Certificate.png"
-                                    alt="Google Project Management">
-                            </a>
-                            <a href="https://www.credly.com/badges/add62efc-3a90-4a03-a8c8-09c1e9f5fc78/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Google_University of Illinois' Gies College of Business Dual Credential.png"
-                                    alt="Google U of I Dual Credential">
-                            </a>
-                            <a href="https://www.credly.com/badges/ee8116b6-92b0-4ba0-a7cb-edcb2817b86f/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/IBM Data Analyst Professional Certificate.png"
-                                    alt="IBM Data Analyst Professional">
-                            </a>
-                            <a href="https://www.credly.com/badges/fe208293-701a-4829-9354-9dff652865bd/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/IBM Data Science Professional Certificate.png"
-                                    alt="IBM Data Science Professional">
-                            </a>
-                            <a href="https://www.credly.com/badges/c1151ca7-762f-4973-a61c-2fcf3abd7688"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Meta Data Analyst Professional Certificate.png"
-                                    alt="Meta Data Analyst Professional">
-                            </a>
-                            <a href="https://www.credly.com/badges/5c716bb4-8b86-430e-9fe3-0373de7be123"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Microsoft 365 Fundamentals Specialization.png"
-                                    alt="Microsoft 365 Fundamentals">
-                            </a>
-                            <a href="https://www.credly.com/badges/5429684d-7d68-4b9a-8d20-a7a2c0fb97ca/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/Statistics for Data Science with Python.png"
-                                    alt="Statistics for Data Science with Python">
-                            </a>
-                            <a href="https://www.credly.com/badges/a528afcd-c717-43d0-8c24-54a875b04a1a/public_url"
-                                class="badge-item" target="_blank">
-                                <img src="Credly Badges/IBM Business Intelligence (BI) Analyst Professional Certificate (V3).png"
-                                    alt="IBM Business Intelligence (BI) Analyst Professional Certificate">
-                            </a>
-                        </div>
-                        <button class="badges-nav badges-next" onclick="scrollBadges(1)">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Languages -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" />
-                                <line x1="2" y1="12" x2="22" y2="12" />
-                                <path
-                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                            </svg>
-                            Languages
-                        </h2>
-                    </div>
-                    <div class="languages-list">
-                        <div class="language-item language-native">
-                            <span class="language-name">English</span>
-                        </div>
-                        <div class="language-item language-native">
-                            <span class="language-name">Tagalog</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FAQ -->
-                <div class="card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M9 9a3 3 0 1 1 6 0c0 2-3 2-3 4" />
-                                <circle cx="12" cy="17" r="1" />
-                            </svg>
-                            FAQ
-                        </h2>
-                        <a href="faq.html" class="view-all">
-                            View
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </a>
-                    </div>
-                    <p class="about-text">
-                        Answers to common questions about how I work, my communication style, the tools I use, availability, and what it's like to work with me as your virtual assistant.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Social Links -->
-        <div class="card fade-in">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                    </svg>
-                    Social Links
-                </h2>
-            </div>
-            <div class="social-grid">
-                <a href="https://www.linkedin.com/in/mariaangelicabaldres/" class="social-item" target="_blank">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                    </svg>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="https://github.com/mariaangelicabaldres" class="social-item" target="_blank">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.credly.com/users/maria-angelica-baldres" class="social-item" target="_blank">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.182c5.423 0 9.818 4.395 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818-5.423 0-9.818-4.395-9.818-9.818 0-5.423 4.395-9.818 9.818-9.818zM9.545 6.545L6.546 12l2.999 5.455h5.91L18.454 12l-2.999-5.455h-5.91zm.91 1.637h3.09L15.273 12l-1.728 3.818h-3.09L8.727 12l1.728-3.818z"/>
-                    </svg>
-                    <span>Credly</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Gallery -->
-        <div class="card gallery-card fade-in">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                    </svg>
-                    Gallery
-                </h2>
-            </div>
-            <div class="gallery-container">
-                <button class="gallery-nav gallery-prev" onclick="scrollGallery(-1)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15 18l-6-6 6-6" />
-                    </svg>
-                </button>
-                <div class="gallery-scroll" id="galleryScroll">
-                    <div class="gallery-item">
-                        <img src="Gallery/1.png" alt="Gallery image 1">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/2.png" alt="Gallery image 2">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/3.png" alt="Gallery image 3">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/4.png" alt="Gallery image 4">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/5.png" alt="Gallery image 5">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/6.png" alt="Gallery image 6">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/7.png" alt="Gallery image 7">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="Gallery/8.png" alt="Gallery image 8">
-                    </div>
-                </div>
-                <button class="gallery-nav gallery-next" onclick="scrollGallery(1)">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 18l6-6-6-6" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer>
-            <p>© <span id="currentYear"></span> Maria Angelica Baldres. All rights reserved. | <a href="privacy_policy.html" style="color: var(--text-secondary); text-decoration: none;">Privacy Policy</a></p>
-        </footer>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-deco">M</div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Real Estate Investment &amp; Performance Intelligence Strategist</span>
+      </div>
+      <h1>I help real estate investors and operators turn scattered property data into <em>clearer investment, operating, and portfolio decisions.</em></h1>
+      <p class="hero-sub">I build analysis, reporting systems, dashboards, and decision frameworks that make income, risk, operations, and asset performance easier to see and easier to act on.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">View Services</a>
+        <a href="https://lunaharaya.substack.com" target="_blank" class="btn-secondary">Read Lunaharaya</a>
+      </div>
+      <div class="hero-credibility">
+        <span>Real estate analysis</span>
+        <span>Portfolio performance</span>
+        <span>Operations intelligence</span>
+        <span>Reporting systems</span>
+      </div>
     </div>
-
-    <!-- Email Modal -->
-    <div class="email-modal-overlay" id="emailModal" onclick="closeEmailModalOutside(event)">
-        <div class="email-modal">
-            <button class="email-modal-close" onclick="closeEmailModal()" aria-label="Close">&times;</button>
-            <h3>Get in Touch</h3>
-            <p>Copy my email address below to send me a message.</p>
-            <div class="email-copy-row">
-                <span id="emailAddress">baldresmariaangelica@gmail.com</span>
-                <button class="copy-btn" id="copyBtn" onclick="copyEmail()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                    Copy
-                </button>
-            </div>
-        </div>
+    <div class="hero-side">
+      <div class="hero-side-label">What the work covers</div>
+      <div class="hero-side-item">
+        <div class="hero-side-item-title">Investment &amp; Deal Intelligence</div>
+        <div class="hero-side-item-desc">Underwriting review, stress testing, scenario analysis, and acquisition decision support. Built to surface what matters before a decision is made.</div>
+      </div>
+      <div class="hero-side-item">
+        <div class="hero-side-item-title">Portfolio Performance Intelligence</div>
+        <div class="hero-side-item-desc">NOI, occupancy, collections, expense ratio, debt coverage, and asset ranking across a portfolio. Organized for ongoing visibility, not one-time review.</div>
+      </div>
+      <div class="hero-side-item">
+        <div class="hero-side-item-title">Operations &amp; Reporting Systems</div>
+        <div class="hero-side-item-desc">Systems that organize scattered data, automate recurring reports, and build the operating intelligence layer that makes better decisions repeatable.</div>
+      </div>
     </div>
+  </div>
+</section>
 
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="problem-grid">
+      <div class="problem-left">
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">The Core Problem</span>
+        </div>
+        <h2 class="section-heading">Most real estate decisions are made with <em>incomplete visibility.</em></h2>
+        <div class="problem-copy">
+          <p>A property can look stable while NOI weakens, expenses drift, debt coverage compresses, lease risk builds, or reporting gaps hide what is really happening underneath the monthly summary.</p>
+          <p>The issue is rarely a lack of data. The issue is that the data is scattered across PM reports, spreadsheets, rent rolls, bank records, CRMs, dashboards, and disconnected workflows.</p>
+          <p>My work helps operators turn that scattered information into a decision layer — one that makes income, risk, and performance visible enough to act on.</p>
+        </div>
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card">
+          <div class="problem-card-num">01</div>
+          <div class="problem-card-title">Scattered property data across disconnected systems</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-num">02</div>
+          <div class="problem-card-title">Weak reporting visibility across income, expenses, and risk</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-num">03</div>
+          <div class="problem-card-title">Decisions made from summaries instead of source-level analysis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Services</span>
+    </div>
+    <h2 class="section-heading">What I build and <em>how I engage</em></h2>
+    <div class="services-grid">
 
-        // Email modal
-        function showEmailModal() {
-            document.getElementById('emailModal').classList.add('active');
-        }
+      <div class="service-card">
+        <span class="service-card-letter">A</span>
+        <div class="service-card-title">Investment &amp; Deal Intelligence</div>
+        <div class="service-card-copy">Deal underwriting, assumption review, stress testing, scenario analysis, DSCR checks, return modeling, and acquisition decision support.</div>
+        <div class="service-card-meta">
+          <div class="service-card-meta-label">Useful for</div>
+          <div class="service-card-meta-text">Investors reviewing acquisitions, operators evaluating expansion, buyers comparing opportunities.</div>
+        </div>
+        <div class="service-card-meta" style="border-top:none; padding-top:1rem;">
+          <div class="service-card-meta-label">Deliverables</div>
+          <div class="service-card-deliverables">
+            <span class="service-tag">Underwriting review</span>
+            <span class="service-tag">Scenario model</span>
+            <span class="service-tag">Deal memo</span>
+            <span class="service-tag">Risk notes</span>
+            <span class="service-tag">Decision summary</span>
+          </div>
+        </div>
+      </div>
 
-        function closeEmailModal() {
-            document.getElementById('emailModal').classList.remove('active');
-            // Reset copy button
-            const btn = document.getElementById('copyBtn');
-            btn.classList.remove('copied');
-            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
-        }
+      <div class="service-card">
+        <span class="service-card-letter">B</span>
+        <div class="service-card-title">Portfolio Performance Intelligence</div>
+        <div class="service-card-copy">Portfolio-level performance review focused on NOI, occupancy, collections, expense ratio, debt coverage, asset ranking, and underperforming property diagnosis.</div>
+        <div class="service-card-meta">
+          <div class="service-card-meta-label">Useful for</div>
+          <div class="service-card-meta-text">Operators who need clearer visibility across multiple properties.</div>
+        </div>
+        <div class="service-card-meta" style="border-top:none; padding-top:1rem;">
+          <div class="service-card-meta-label">Deliverables</div>
+          <div class="service-card-deliverables">
+            <span class="service-tag">Portfolio dashboard</span>
+            <span class="service-tag">KPI review</span>
+            <span class="service-tag">Variance analysis</span>
+            <span class="service-tag">Asset ranking</span>
+            <span class="service-tag">Monthly review structure</span>
+          </div>
+        </div>
+      </div>
 
-        function closeEmailModalOutside(event) {
-            if (event.target === document.getElementById('emailModal')) {
-                closeEmailModal();
-            }
-        }
+      <div class="service-card">
+        <span class="service-card-letter">C</span>
+        <div class="service-card-title">Operations &amp; Data System Build</div>
+        <div class="service-card-copy">Systems that organize property data, reporting workflows, KPI dashboards, and recurring review processes so performance can be monitored without rebuilding reports manually every month.</div>
+        <div class="service-card-meta">
+          <div class="service-card-meta-label">Useful for</div>
+          <div class="service-card-meta-text">Owners and operators managing scattered data across spreadsheets, PM reports, CRMs, and manual workflows.</div>
+        </div>
+        <div class="service-card-meta" style="border-top:none; padding-top:1rem;">
+          <div class="service-card-meta-label">Deliverables</div>
+          <div class="service-card-deliverables">
+            <span class="service-tag">Dashboard</span>
+            <span class="service-tag">Data tracker</span>
+            <span class="service-tag">Reporting workflow</span>
+            <span class="service-tag">Notion / Sheets / Excel system</span>
+            <span class="service-tag">Review templates</span>
+          </div>
+        </div>
+      </div>
 
-        function copyEmail() {
-            const email = document.getElementById('emailAddress').textContent;
-            navigator.clipboard.writeText(email).then(() => {
-                const btn = document.getElementById('copyBtn');
-                btn.classList.add('copied');
-                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
-                }, 2500);
-            });
-        }
+      <div class="service-card">
+        <span class="service-card-letter">D</span>
+        <div class="service-card-title">Strategic Data &amp; Operations Partner</div>
+        <div class="service-card-copy">Ongoing analytical and operational support for investors and operators who need someone to monitor performance, surface issues, interpret numbers, and support recurring investment or portfolio decisions.</div>
+        <div class="service-card-meta">
+          <div class="service-card-meta-label">Useful for</div>
+          <div class="service-card-meta-text">Operators who want a strategic thinking partner, not a task executor.</div>
+        </div>
+        <div class="service-card-meta" style="border-top:none; padding-top:1rem;">
+          <div class="service-card-meta-label">Deliverables</div>
+          <div class="service-card-deliverables">
+            <span class="service-tag">Monthly analysis</span>
+            <span class="service-tag">KPI monitoring</span>
+            <span class="service-tag">Decision support</span>
+            <span class="service-tag">Issue diagnosis</span>
+            <span class="service-tag">Operating recommendations</span>
+          </div>
+        </div>
+      </div>
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeEmailModal();
-        });
+    </div>
+  </div>
+</section>
 
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+<!-- HOW I WORK -->
+<section class="how">
+  <div class="section-inner">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Process</span>
+    </div>
+    <h2 class="section-heading">How the work is <em>structured</em></h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-step-num">01</div>
+        <div class="how-step-title">Clarify the decision</div>
+        <div class="how-step-copy">Before building anything, define what the work needs to support: buy, hold, sell, refinance, improve operations, reduce expense leakage, monitor performance, or prepare reporting.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <div class="how-step-title">Reconstruct the numbers</div>
+        <div class="how-step-copy">Review the available data: rent rolls, T12s, PM reports, expense categories, debt schedules, dashboards, spreadsheets, or operating workflows.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <div class="how-step-title">Build the decision layer</div>
+        <div class="how-step-copy">Create the model, dashboard, scorecard, reporting system, or operating workflow needed to make the issue visible and the decision supportable.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">04</div>
+        <div class="how-step-title">Translate findings into action</div>
+        <div class="how-step-copy">The output should show what changed, what matters, where to look next, and what decision the numbers support. Not just a report — a decision tool.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Theme toggle function
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
+<!-- CASE STUDIES / SELECTED WORK -->
+<section class="work" id="work">
+  <div class="section-inner">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Selected Work</span>
+    </div>
+    <h2 class="section-heading">Selected work &amp; <em>modeled case studies</em></h2>
+    <div class="work-grid">
 
-        // Load saved theme on page load (default to light)
-        (function () {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
+      <div class="work-card">
+        <span class="work-card-badge">Portfolio Analysis</span>
+        <div class="work-card-title">Real Estate Return System Mapper</div>
+        <div class="work-card-row">
+          <div>
+            <span class="work-card-field-label">Problem</span>
+            <div class="work-card-field-text">Investors lacked a clear way to compare income, financing, and value performance across multiple assets simultaneously.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">What was built</span>
+            <div class="work-card-field-text">A portfolio diagnostic tool reviewing income, financing, and value systems using NOI, DSCR, expense ratio, financing spread, implied cap rate, and variance flags.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">Decision supported</span>
+            <div class="work-card-field-text">Asset ranking, hold vs. sell evaluation, and capital allocation across a mixed portfolio.</div>
+          </div>
+        </div>
+      </div>
 
-        // Gallery scroll function
-        function scrollGallery(direction) {
-            const gallery = document.getElementById('galleryScroll');
-            const scrollAmount = 220;
-            gallery.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-        }
+      <div class="work-card">
+        <span class="work-card-badge">Modeled Case Study</span>
+        <div class="work-card-title">NOI &amp; Expense Visibility Review</div>
+        <div class="work-card-row">
+          <div>
+            <span class="work-card-field-label">Problem</span>
+            <div class="work-card-field-text">Reported NOI did not reflect operating reality due to misclassified expenses, unaccounted CapEx, and inconsistent vacancy treatment.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">What was built</span>
+            <div class="work-card-field-text">A modeled analysis showing how reported NOI diverges from restated operating NOI when expenses, CapEx, vacancy, and income categories are reviewed at the source level.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">Decision supported</span>
+            <div class="work-card-field-text">More accurate asset valuation, financing assessment, and operating performance benchmarking.</div>
+          </div>
+        </div>
+      </div>
 
-        // Badges scroll function
-        function scrollBadges(direction) {
-            const badges = document.getElementById('badgesScroll');
-            const scrollAmount = 120;
-            badges.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
-        }
+      <div class="work-card">
+        <span class="work-card-badge">Framework</span>
+        <div class="work-card-title">Residential vs. Commercial Operating Model Comparison</div>
+        <div class="work-card-row">
+          <div>
+            <span class="work-card-field-label">Problem</span>
+            <div class="work-card-field-text">Investors moving between asset classes were applying residential underwriting assumptions to commercial deals — and vice versa.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">What was built</span>
+            <div class="work-card-field-text">A comparative framework covering underwriting, lease structures, vacancy timelines, tenant risk, financing, and operating risk differences across residential and commercial real estate.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">Decision supported</span>
+            <div class="work-card-field-text">Asset class selection, due diligence scope, and operating assumption calibration across deal types.</div>
+          </div>
+        </div>
+      </div>
 
-        // Update arrow visibility based on scroll position
-        function updateScrollArrows(container, prevBtn, nextBtn) {
-            const isAtStart = container.scrollLeft <= 5;
-            const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 5;
+      <div class="work-card">
+        <span class="work-card-badge">Reporting System</span>
+        <div class="work-card-title">Business Intelligence Reporting System</div>
+        <div class="work-card-row">
+          <div>
+            <span class="work-card-field-label">Problem</span>
+            <div class="work-card-field-text">Business data was scattered across multiple tools with no consistent recurring review structure, making it difficult to surface trends or diagnose performance issues early.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">What was built</span>
+            <div class="work-card-field-text">A reporting system concept converting scattered business data into structured weekly, monthly, and quarterly performance reviews with KPI tracking and variance flagging.</div>
+          </div>
+          <div>
+            <span class="work-card-field-label">Decision supported</span>
+            <div class="work-card-field-text">Operational decision-making, performance monitoring, and business health visibility on a recurring basis.</div>
+          </div>
+        </div>
+      </div>
 
-            if (prevBtn) prevBtn.classList.toggle('hidden', isAtStart);
-            if (nextBtn) nextBtn.classList.toggle('hidden', isAtEnd);
-        }
+    </div>
+  </div>
+</section>
 
-        // Initialize scroll listeners
-        document.addEventListener('DOMContentLoaded', function () {
-            // Gallery scroll detection
-            const galleryScroll = document.getElementById('galleryScroll');
-            const galleryPrev = document.querySelector('.gallery-prev');
-            const galleryNext = document.querySelector('.gallery-next');
+<!-- LUNAHARAYA -->
+<section class="luna" id="lunaharaya">
+  <div class="section-inner">
+    <div class="luna-inner">
+      <div class="luna-left">
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">Publication</span>
+        </div>
+        <h2 class="section-heading"><em>Lunaharaya</em></h2>
+        <p class="luna-copy">Lunaharaya is the publication and resource hub behind my real estate intelligence work. It publishes Knowledge Base explainers, Deep Dives, and Case Studies on real estate investing, portfolio performance, operations, and decision-making.</p>
+        <p class="luna-copy" style="margin-top:-0.75rem;">If you are an investor or operator looking to build a stronger analytical foundation, Lunaharaya is where the underlying thinking lives.</p>
+        <div class="luna-actions">
+          <a href="https://lunaharaya.substack.com" target="_blank" class="btn-primary">Read Lunaharaya</a>
+          <a href="https://lunaharaya.substack.com/archive" target="_blank" class="btn-secondary">View Archive</a>
+        </div>
+      </div>
+      <div class="luna-right">
+        <div class="luna-brand">Lunaharaya</div>
+        <div class="luna-tagline">Real Estate Investment &amp; Performance Intelligence</div>
+        <div class="luna-pillars">
+          <div class="luna-pillar">
+            <span class="luna-pillar-num">01</span>
+            <div>
+              <div class="luna-pillar-name"><a href="https://lunaharaya.substack.com/t/knowledge-base" target="_blank" style="color:inherit;text-decoration:none;">Knowledge Base</a></div>
+              <div class="luna-pillar-desc">Clear explanations of real estate concepts, metrics, and operating principles.</div>
+            </div>
+          </div>
+          <div class="luna-pillar">
+            <span class="luna-pillar-num">02</span>
+            <div>
+              <div class="luna-pillar-name"><a href="https://lunaharaya.substack.com/t/deep-dive" target="_blank" style="color:inherit;text-decoration:none;">Deep Dives</a></div>
+              <div class="luna-pillar-desc">Analytical breakdowns of what is happening inside deals, portfolios, markets, or operations.</div>
+            </div>
+          </div>
+          <div class="luna-pillar">
+            <span class="luna-pillar-num">03</span>
+            <div>
+              <div class="luna-pillar-name"><a href="https://lunaharaya.substack.com/t/case-study" target="_blank" style="color:inherit;text-decoration:none;">Case Studies</a></div>
+              <div class="luna-pillar-desc">Applied examples showing how real estate decisions, risks, and performance issues can be evaluated.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            if (galleryScroll) {
-                updateScrollArrows(galleryScroll, galleryPrev, galleryNext);
-                galleryScroll.addEventListener('scroll', () => {
-                    updateScrollArrows(galleryScroll, galleryPrev, galleryNext);
-                });
-            }
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">About</span>
+        </div>
+        <h2 class="section-heading">Maria Angelica <em>Baldres</em></h2>
+        <div class="about-copy">
+          <p>I work at the intersection of real estate analysis, business intelligence, operations, and decision systems.</p>
+          <p>My background includes financial analysis, operations support, business reporting, dashboard building, workflow design, and data organization for business owners and remote teams. My current focus is real estate investment and performance intelligence: helping investors and operators understand what the numbers are saying and what decisions they should inform.</p>
+          <p>I work remotely with US-based clients, aligned to Eastern Time, across acquisitions, portfolio management, operations, and reporting.</p>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="capabilities-label">Capabilities</div>
+        <ul class="capabilities-list">
+          <li>Real estate financial analysis</li>
+          <li>Portfolio performance review</li>
+          <li>KPI dashboards</li>
+          <li>Excel &amp; Google Sheets modeling</li>
+          <li>Notion systems</li>
+          <li>Business intelligence reporting</li>
+          <li>Operations workflows</li>
+          <li>Data cleanup and reporting structure</li>
+          <li>Deal and asset review support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-            // Badges scroll detection
-            const badgesScroll = document.getElementById('badgesScroll');
-            const badgesPrev = document.querySelector('.badges-prev');
-            const badgesNext = document.querySelector('.badges-next');
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="section-inner">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Tools &amp; Systems</span>
+    </div>
+    <h2 class="section-heading">Tools I <em>work with</em></h2>
+    <div class="tools-grid">
+      <span class="tool-chip">Excel</span>
+      <span class="tool-chip">Google Sheets</span>
+      <span class="tool-chip">Notion</span>
+      <span class="tool-chip">Python</span>
+      <span class="tool-chip">Tableau</span>
+      <span class="tool-chip">Google Workspace</span>
+      <span class="tool-chip">Slack</span>
+      <span class="tool-chip">ClickUp</span>
+      <span class="tool-chip">Asana</span>
+      <span class="tool-chip">Monday.com</span>
+      <span class="tool-chip">CRM workflows</span>
+      <span class="tool-chip">Reporting workflows</span>
+    </div>
+  </div>
+</section>
 
-            if (badgesScroll) {
-                updateScrollArrows(badgesScroll, badgesPrev, badgesNext);
-                badgesScroll.addEventListener('scroll', () => {
-                    updateScrollArrows(badgesScroll, badgesPrev, badgesNext);
-                });
-            }
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Work With Me</span>
+      </div>
+      <h2 class="section-heading">Work With <em>Me</em></h2>
+      <p class="contact-copy">For project inquiries, portfolio review support, dashboard builds, real estate analysis, or ongoing performance intelligence support, send a short note with what you are working on and what decision the work needs to support.</p>
+      <div class="contact-email-row">
+        <div class="contact-email-box">
+          <span class="contact-email-box-label">Contact</span>
+          <span class="contact-email-box-addr">hello@lunaharaya.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            // Handle project category links with smooth scroll and offset
-            const categoryLinks = document.querySelectorAll('.category-tag[href*="#"]');
-            categoryLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    
-                    // Check if it's a link to projects.html with a hash
-                    if (href.includes('projects.html#')) {
-                        // Let the browser handle
-                        // Let the browser handle navigation to projects.html
-                        // The projects.html page will handle the scroll offset
-                        return;
-                    }
-                });
-            });
-        });
-    </script>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Maria Angelica Baldres</div>
+      <div class="footer-brand-sub">Real Estate Investment &amp; Performance Intelligence Strategist</div>
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/mariaangelicabaldres/" target="_blank" class="footer-social-link">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/mariaangelicabaldres" target="_blank" class="footer-social-link">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Selected Work</a></li>
+      <li><a href="https://lunaharaya.com" target="_blank">Lunaharaya</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© <span id="copy-year"></span> Maria Angelica Baldres. All rights reserved.</span>
+    <span class="footer-copy">mariaangelicabaldres.com</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('copy-year').textContent = new Date().getFullYear();
+
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+
+  // Close mobile nav on link click
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => nav.classList.remove('open'));
+  });
+</script>
 </body>
-
 </html>
