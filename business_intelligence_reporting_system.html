@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence Reporting System | Maria Angelica Baldres</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ebebeb;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border: #e0e0e0;
+            --accent: #c9a227;
+            --accent-dark: #b08d1f;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --border: #2a2a2a;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* ── Table of Contents ── */
+        .toc {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 24px; margin-bottom: 48px;
+        }
+        .toc-title {
+            font-size: 14px; font-weight: 600; color: var(--text-tertiary);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+        }
+        .toc-list {
+            list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;
+        }
+        .toc-list a {
+            color: var(--text-secondary); text-decoration: none; font-size: 14px;
+            padding: 8px 12px; border-radius: 8px; transition: all 0.2s ease; display: block;
+        }
+        .toc-list a:hover { background: var(--bg-secondary); color: var(--accent); }
+
+        /* ── Layout ── */
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+        /* ── Header ── */
+        .page-header {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px;
+        }
+        .back-link {
+            display: flex; align-items: center; gap: 8px; color: var(--text-secondary);
+            text-decoration: none; font-size: 14px; transition: color 0.2s ease;
+        }
+        .back-link:hover { color: var(--accent); }
+        .back-link svg { width: 16px; height: 16px; }
+        .theme-toggle {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+            padding: 10px; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; transition: all 0.2s ease;
+        }
+        .theme-toggle:hover { border-color: var(--accent); }
+        .theme-toggle svg { width: 18px; height: 18px; color: var(--text-secondary); }
+        .sun-icon { display: none; } .moon-icon { display: block; }
+        [data-theme="dark"] .sun-icon { display: block; }
+        [data-theme="dark"] .moon-icon { display: none; }
+
+        /* ── Hero ── */
+        .project-hero { margin-bottom: 40px; }
+        .project-category {
+            display: inline-block; background: var(--accent); color: #000;
+            padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;
+        }
+        .project-title { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+        .project-outcome { font-size: 18px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px; }
+        .tools-section { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+        .tool-tag {
+            background: var(--bg-card); border: 1px solid var(--border); padding: 8px 16px;
+            border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--text-primary);
+        }
+        .skills-demonstrated { margin-top: 4px; padding-top: 24px; border-top: 1px solid var(--border); }
+        .skills-demonstrated h4 { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-pill { background: var(--bg-secondary); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+
+        /* ── Meta bar ── */
+        .project-meta {
+            display: flex; flex-wrap: wrap; gap: 24px; padding: 20px 0;
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 48px;
+        }
+        .meta-item { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 14px; }
+        .meta-item svg { width: 16px; height: 16px; color: var(--text-tertiary); }
+
+        /* ── Sections ── */
+        .section { margin-bottom: 60px; scroll-margin-top: 40px; }
+        .section-title {
+            font-size: 22px; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent); color: var(--text-primary);
+        }
+        .section-content { color: var(--text-secondary); font-size: 15px; line-height: 1.8; }
+        .section-content p { margin-bottom: 14px; }
+        .section-content p:last-child { margin-bottom: 0; }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 24px; margin-top: 20px;
+        }
+        .highlight-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 24px; margin-top: 20px;
+            border-left: 4px solid var(--accent);
+        }
+        .highlight-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--text-primary); }
+
+        /* ── Stats grid ── */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 28px 0; }
+        .stat-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px; text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .stat-number { font-size: 2em; font-weight: 700; color: var(--accent); display: block; }
+        .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 6px; }
+
+        /* ── Impact block ── */
+        .impact-block {
+            background: var(--bg-card); border: 2px solid var(--accent);
+            border-radius: 14px; padding: 28px; margin: 24px 0;
+        }
+        .impact-block h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; text-align: center; }
+        .impact-numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .impact-num { font-size: 2.4em; font-weight: 700; color: var(--accent); display: block; }
+        .impact-label { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; }
+        .impact-sub { font-size: 11px; color: var(--text-tertiary); }
+
+        /* ── Before/After ── */
+        .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .before-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 22px; border-left: 4px solid #e74c3c;
+        }
+        .after-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 22px; border-left: 4px solid #27ae60;
+        }
+        .before-card h4 { color: #c0392b; margin-bottom: 8px; font-size: 15px; }
+        .after-card h4 { color: #155724; margin-bottom: 8px; font-size: 15px; }
+        .before-card .time-label { color: #c0392b; font-size: 1.1em; font-weight: 700; margin-bottom: 12px; }
+        .after-card .time-label { color: #155724; font-size: 1.1em; font-weight: 700; margin-bottom: 12px; }
+        .step-list { padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2; }
+        .pain-note { font-size: 13px; color: #c0392b; margin-top: 10px; font-style: italic; }
+        .win-note { font-size: 13px; color: #155724; margin-top: 10px; font-weight: 600; }
+
+        /* ── Feature grid ── */
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+        .feature-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 22px;
+        }
+        .feature-icon { font-size: 2em; margin-bottom: 10px; }
+        .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary); }
+        .feature-card p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+        .feature-card ul { padding-left: 18px; color: var(--text-secondary); font-size: 14px; margin-top: 10px; line-height: 1.8; }
+
+        /* ── Notebooks list ── */
+        .notebook-item {
+            display: flex; gap: 20px; padding: 18px 0;
+            border-bottom: 1px solid var(--border); align-items: flex-start;
+        }
+        .notebook-item:last-child { border-bottom: none; }
+        .nb-num {
+            background: var(--accent); color: #000; width: 38px; height: 38px;
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+        }
+        .nb-body h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .nb-body p { font-size: 14px; color: var(--text-secondary); margin-bottom: 6px; }
+        .nb-body ul { padding-left: 18px; color: var(--text-secondary); font-size: 14px; line-height: 1.8; }
+        .nb-result { font-size: 13px; color: #27ae60; font-weight: 500; margin-top: 6px; }
+
+        /* ── Tech badges ── */
+        .tech-badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+        .tech-badge {
+            background: var(--accent); color: #000; padding: 8px 16px;
+            border-radius: 20px; font-size: 13px; font-weight: 600;
+        }
+
+        /* ── Who it's for ── */
+        .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .fit-yes {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 22px; border-left: 4px solid #27ae60;
+        }
+        .fit-no {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 22px; border-left: 4px solid #e74c3c;
+        }
+        .fit-yes h3 { color: #27ae60; margin-bottom: 12px; font-size: 15px; }
+        .fit-no h3 { color: #e74c3c; margin-bottom: 12px; font-size: 15px; }
+        .fit-list { padding-left: 18px; color: var(--text-secondary); font-size: 14px; line-height: 2; }
+
+        /* ── Takeaways ── */
+        .takeaways-list { list-style: none; margin-top: 16px; }
+        .takeaways-list li {
+            position: relative; padding-left: 28px; margin-bottom: 14px;
+            color: var(--text-secondary); font-size: 15px;
+        }
+        .takeaways-list li::before {
+            content: ''; position: absolute; left: 0; top: 9px;
+            width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+        }
+
+        /* ── Scope note ── */
+        .scope-note {
+            background: var(--bg-secondary); border-left: 3px solid var(--accent);
+            border-radius: 8px; padding: 18px 22px; margin-top: 24px;
+            font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+        }
+
+        /* ── Report table ── */
+        .report-table-wrap {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; overflow: hidden; margin-top: 20px;
+        }
+        .report-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .report-table th {
+            background: var(--accent); color: #000; padding: 13px 16px;
+            text-align: left; font-weight: 600;
+        }
+        .report-table td {
+            padding: 13px 16px; border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .report-table tr:last-child td { border-bottom: none; }
+        .report-table tr:hover td { background: var(--bg-secondary); }
+
+        /* ── GitHub section ── */
+        .github-section {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        .github-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .github-info p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+        .github-btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px;
+            background: var(--text-primary); color: var(--bg-primary); border-radius: 10px;
+            text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.2s ease; flex-shrink: 0;
+        }
+        .github-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .github-btn svg { width: 18px; height: 18px; }
+
+        /* ── CTA buttons ── */
+        .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .btn-primary-gold {
+            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+            background: var(--accent); color: #000; border-radius: 10px; text-decoration: none;
+            font-size: 14px; font-weight: 600; transition: all 0.2s ease;
+        }
+        .btn-primary-gold:hover { background: var(--accent-dark); transform: translateY(-2px); }
+        .btn-outline {
+            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+            background: transparent; color: var(--text-primary); border: 1px solid var(--border);
+            border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s ease;
+        }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ── Navigation ── */
+        .project-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 48px; padding-top: 32px; border-top: 2px solid var(--border); gap: 20px;
+        }
+        .nav-btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+            color: var(--text-primary); text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s ease;
+        }
+        .nav-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); transform: translateX(-2px); }
+        .nav-btn.next:hover { transform: translateX(2px); }
+        .nav-btn svg { width: 18px; height: 18px; }
+        .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: not-allowed; }
+        .nav-spacer { flex: 1; }
+
+        /* ── Credibility note ── */
+        .credibility-note {
+            margin-top: 40px; padding: 16px 20px; background: var(--bg-secondary);
+            border-left: 3px solid var(--accent); border-radius: 8px;
+            font-size: 13px; color: var(--text-secondary); font-style: italic;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border);
+            text-align: center; color: var(--text-tertiary); font-size: 13px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .project-title { font-size: 30px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .impact-numbers { grid-template-columns: repeat(2, 1fr); }
+            .before-after { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .fit-grid { grid-template-columns: 1fr; }
+            .github-section { flex-direction: column; text-align: center; }
+            .project-nav { flex-direction: column; }
+            .nav-spacer { display: none; }
+            .cta-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ── Header ── -->
+    <header class="page-header">
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
+    </header>
+
+    <!-- ── Hero ── -->
+    <div class="project-hero">
+        <span class="project-category">Business Intelligence</span>
+        <h1 class="project-title">Business Intelligence Reporting System</h1>
+        <p class="project-outcome">
+            Modular Python/Jupyter pipeline that automates business review report generation from fragmented data sources,
+            transforming newsletter analytics, sales metrics, and website data into executive-ready
+            Weekly, Monthly, and Quarterly reports.
+        </p>
+        <div class="tools-section">
+            <span class="tool-tag">Python</span>
+            <span class="tool-tag">Jupyter Notebooks</span>
+            <span class="tool-tag">pandas</span>
+            <span class="tool-tag">matplotlib</span>
+            <span class="tool-tag">python-docx</span>
+            <span class="tool-tag">numpy</span>
+        </div>
+        <div class="skills-demonstrated">
+            <h4>Skills Demonstrated</h4>
+            <div class="skill-pills">
+                <span class="skill-pill">Analytics Engineering</span>
+                <span class="skill-pill">Report Automation</span>
+                <span class="skill-pill">Data Pipeline Design</span>
+                <span class="skill-pill">Metric Standardization</span>
+                <span class="skill-pill">Business Intelligence</span>
+                <span class="skill-pill">Process Automation</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Meta bar ── -->
+    <div class="project-meta">
+        <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>December 2025</span>
+        </div>
+        <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+                <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+            </svg>
+            <span>Version 1.0.0</span>
+        </div>
+        <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+            <span>~21,000 records · 13 source files</span>
+        </div>
+        <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/>
+                <path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/>
+            </svg>
+            <span>English</span>
+        </div>
+    </div>
+
+    <!-- ── Table of Contents ── -->
+    <nav class="toc">
+        <h3 class="toc-title">Table of Contents</h3>
+        <ul class="toc-list">
+            <li><a href="#overview">1. Project Overview</a></li>
+            <li><a href="#problems">2. Business Problems Solved</a></li>
+            <li><a href="#decisions">3. Decisions Enabled by This System</a></li>
+            <li><a href="#reports">4. Automated Report Generation</a></li>
+            <li><a href="#notebooks">5. How Each Notebook Works</a></li>
+            <li><a href="#technical">6. Technical Stack & Implementation</a></li>
+            <li><a href="#fit">7. Who This Project Is For</a></li>
+            <li><a href="#takeaways">8. Key Takeaways & Skills</a></li>
+            <li><a href="#roadmap">9. Roadmap & Future Improvements</a></li>
+        </ul>
+    </nav>
+
+    <!-- ── Section: Project Overview ── -->
+    <section id="overview" class="section">
+        <h2 class="section-title">Project Overview</h2>
+        <div class="section-content">
+            <p>
+                The Business Intelligence Reporting System eliminates manual report compilation by automating the entire
+                workflow from raw data ingestion through analysis to formatted report generation. Built with a modular
+                analytics engineering approach, this Python-based system transforms fragmented data from email
+                platforms, website analytics, CRM tools, and sales trackers into professional Weekly Business Reviews
+                (WBR), Monthly Business Reviews (MBR), and Quarterly Business Reviews (QBR).
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-number">13</span><span class="stat-label">Jupyter Notebooks</span></div>
+                <div class="stat-card"><span class="stat-number">3</span><span class="stat-label">Report Types Generated</span></div>
+                <div class="stat-card"><span class="stat-number">4+</span><span class="stat-label">Data Sources Integrated</span></div>
+                <div class="stat-card"><span class="stat-number">50+</span><span class="stat-label">Metrics Automated</span></div>
+            </div>
+
+            <div class="highlight-card">
+                <h3>🎯 Core Innovation: Modular Analytics Engineering Architecture</h3>
+                <p style="font-size:14px; color:var(--text-secondary); margin:0; line-height:1.8;">
+                    Instead of monolithic scripts, the system uses <strong>13 specialized notebooks</strong> where each
+                    handles one data domain (newsletter, sales, forms, etc.). Notebooks output CSV files as intermediate
+                    results — a pattern borrowed from modern data warehouses — enabling independent testing, easy debugging,
+                    and reproducible report generation. This "One Notebook = One Data Domain = One Set of Outputs"
+                    philosophy demonstrates analytics engineering best practices at portfolio scale.
+                </p>
+            </div>
+
+            <!-- Quantified Impact -->
+            <div class="impact-block" style="margin-top:28px;">
+                <h3>📊 Quantified Business Impact</h3>
+                <div class="impact-numbers">
+                    <div>
+                        <span class="impact-num">94%</span>
+                        <p class="impact-label">Time Reduction<br><span class="impact-sub">From 8 hours to 30 minutes</span></p>
+                    </div>
+                    <div>
+                        <span class="impact-num">100%</span>
+                        <p class="impact-label">Eliminated Manual Copy-Paste<br><span class="impact-sub">Zero manual data entry</span></p>
+                    </div>
+                    <div>
+                        <span class="impact-num">50+</span>
+                        <p class="impact-label">Standardized Metrics<br><span class="impact-sub">Across WBR/MBR/QBR</span></p>
+                    </div>
+                    <div>
+                        <span class="impact-num">Same‑Day</span>
+                        <p class="impact-label">Insight Delivery<br><span class="impact-sub">Down from next-day</span></p>
+                    </div>
+                </div>
+                <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-secondary);">
+                    <strong>Result:</strong> Reduced calculation inconsistencies to zero while enabling faster, data-driven decision-making.
+                </p>
+            </div>
+
+            <!-- Before / After -->
+            <div class="card" style="margin-top:24px;">
+                <h3 style="font-size:17px; font-weight:700; margin-bottom:20px; text-align:center;">⏱️ The Automation Story: 8 Hours → 30 Minutes</h3>
+                <div class="before-after">
+                    <div class="before-card">
+                        <h4>❌ Before: Manual Process</h4>
+                        <p class="time-label">~8 hours/week (WBR alone)</p>
+                        <ol class="step-list">
+                            <li>Download raw data from 6+ platforms</li>
+                            <li>Clean data manually</li>
+                            <li>Sort & categorize by date and type</li>
+                            <li>Compute metrics in spreadsheets</li>
+                            <li>Create charts manually</li>
+                            <li>Build comparison tables</li>
+                            <li>Assemble final Word document</li>
+                        </ol>
+                        <p class="pain-note">Error-prone, tedious, inconsistent formulas, copy-paste mistakes</p>
+                    </div>
+                    <div class="after-card">
+                        <h4>✅ After: Automated Pipeline</h4>
+                        <p class="time-label">~30 minutes/week</p>
+                        <ol class="step-list">
+                            <li>Download raw data exports (5–10 min)</li>
+                            <li>Place files in <code style="background:var(--bg-secondary);padding:2px 5px;border-radius:3px;">data/</code> folder (1 min)</li>
+                            <li>Update date config file (1 min)</li>
+                            <li>Run notebooks 01–13 (15 min)</li>
+                        </ol>
+                        <p class="win-note">Steps 2–7 above are fully automated. Just run the code.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What gets automated -->
+            <div class="highlight-card" style="background:var(--bg-secondary); border-left-color:#c9a227; margin-top:20px;">
+                <h3 style="color:var(--text-primary);">🤖 What the 13 Notebooks Automate</h3>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px;">
+                    <div>
+                        <p style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-primary);">Notebooks 01–08: Data Processing</p>
+                        <ul style="padding-left:18px;color:var(--text-secondary);font-size:14px;line-height:1.9;">
+                            <li>Load raw CSV/Excel files</li>
+                            <li>Clean & normalize data</li>
+                            <li>Combine multiple sources by date</li>
+                            <li>Categorize by type, series, source</li>
+                            <li>Aggregate to daily/weekly/monthly/quarterly</li>
+                            <li>Compute all metrics</li>
+                            <li>Generate PNG charts for each metric</li>
+                            <li>Save processed CSVs to outputs/</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-primary);">Notebooks 09–10: Analysis Tables</p>
+                        <ul style="padding-left:18px;color:var(--text-secondary);font-size:14px;line-height:1.9;margin-bottom:16px;">
+                            <li>Create WoW and MoM comparison tables</li>
+                            <li>Calculate period-over-period changes</li>
+                            <li>Format tables for report insertion</li>
+                        </ul>
+                        <p style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-primary);">Notebooks 11–13: Report Generators</p>
+                        <ul style="padding-left:18px;color:var(--text-secondary);font-size:14px;line-height:1.9;">
+                            <li>Generate narrative insights</li>
+                            <li>Assemble into formatted .docx</li>
+                            <li>Output: WBR/MBR/QBR reports ready to share</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section: Business Problems ── -->
+    <section id="problems" class="section">
+        <h2 class="section-title">Business Problems Solved</h2>
+        <div class="section-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Fragmented Data Sources</h3>
+                    <p>Newsletter analytics in Beehiiv, website metrics in Fathom Analytics, sales data in Google Sheets, call scheduling in Calendly — each system generates its own exports with different formats and structures.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Manual Copy-Paste Work</h3>
+                    <p>Creating weekly/monthly reports manually requires hours of downloading CSVs, copying metrics into templates, calculating period-over-period changes, and formatting charts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📉</div>
+                    <h3>Inconsistent Analysis</h3>
+                    <p>Manual calculations lead to formula errors, inconsistent time period definitions, and varying interpretations of metric definitions across reports.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🐢</div>
+                    <h3>Delayed Insights</h3>
+                    <p>By the time data is compiled, analyzed, and formatted into a report, business conditions have already changed — making the insights less actionable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section: Decisions Enabled ── -->
+    <section id="decisions" class="section">
+        <h2 class="section-title">Decisions Enabled by This System</h2>
+        <div class="section-content">
+            <p>Beyond reporting metrics, this system provides decision-support insights that help leadership take action:</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📧</div>
+                    <h3>Newsletter Strategy</h3>
+                    <p><strong>Identifies churn spikes before they impact monthly growth</strong></p>
+                    <ul>
+                        <li>Which email series has highest unsubscribe rates?</li>
+                        <li>Is subscriber growth keeping pace with targets?</li>
+                        <li>Are open rates trending up or just fluctuating?</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📉</div>
+                    <h3>Funnel Optimization</h3>
+                    <p><strong>Flags leakage between scheduled → live → offer stages</strong></p>
+                    <ul>
+                        <li>Which funnel step is the weakest link?</li>
+                        <li>Is show rate dropping due to scheduling or interest?</li>
+                        <li>Where should we invest to improve conversion?</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Signal vs. Noise</h3>
+                    <p><strong>Shows whether performance changes are real trends or variance</strong></p>
+                    <ul>
+                        <li>Is this week's drop a trend or just weekly fluctuation?</li>
+                        <li>Rolling averages smooth noise to reveal patterns</li>
+                        <li>Trend lines show directional movement over time</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Goal Tracking</h3>
+                    <p><strong>Helps leadership decide if targets are realistically on track</strong></p>
+                    <ul>
+                        <li>Are we ahead or behind monthly goals?</li>
+                        <li>Which metrics need immediate attention?</li>
+                        <li>What's the gap between actual and target performance?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Key Differentiator ── -->
+    <div class="highlight-card" style="margin-bottom:60px;">
+        <h3 style="font-size:18px;">🌟 Key Differentiator: Metrics That Explain Themselves</h3>
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:12px;">
+            Unlike dashboards that require interpretation, <strong>every chart in this system is paired with an
+            auto-generated narrative</strong> explaining what happened, why it matters, and whether action is needed.
+        </p>
+        <p style="font-size:14px; color:var(--text-secondary); margin-bottom:10px;">Each insight block automatically includes:</p>
+        <ul style="padding-left:20px; color:var(--text-secondary); font-size:14px; line-height:2;">
+            <li>Current period value with context</li>
+            <li>Comparison to previous period (WoW/MoM/QoQ)</li>
+            <li>Comparison to rolling average (6 weeks/months/quarters)</li>
+            <li>Trend direction (up/down/stable) with visual indicators</li>
+            <li>Favorability assessment (green = positive, red = needs attention)</li>
+        </ul>
+        <p style="font-size:14px; color:var(--text-secondary); margin-top:12px; margin-bottom:0;">
+            <strong>Result:</strong> Stakeholders receive actionable insights, not just charts — enabling faster decision-making without requiring deep data expertise.
+        </p>
+    </div>
+
+    <!-- ── Section: Automated Report Generation ── -->
+    <section id="reports" class="section">
+        <h2 class="section-title">Solution: Automated Report Generation</h2>
+        <div class="section-content">
+            <p>The system generates three types of business review reports, each with consistent structure but different time horizons:</p>
+
+            <div class="report-table-wrap">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Report Type</th>
+                            <th>Frequency</th>
+                            <th>Time Comparison</th>
+                            <th>Rolling Average</th>
+                            <th>Primary Focus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>WBR</strong> (Weekly Business Review)</td>
+                            <td>Weekly</td>
+                            <td>Week-over-Week (WoW)</td>
+                            <td>6 weeks</td>
+                            <td>Operational performance, short-term trends</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MBR</strong> (Monthly Business Review)</td>
+                            <td>Monthly</td>
+                            <td>Month-over-Month (MoM)</td>
+                            <td>6 months</td>
+                            <td>Goal tracking, medium-term trends</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QBR</strong> (Quarterly Business Review)</td>
+                            <td>Quarterly</td>
+                            <td>Quarter-over-Quarter (QoQ)</td>
+                            <td>6 quarters</td>
+                            <td>Strategic review, long-term performance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-card" style="margin-top:24px;">
+                <h3>📝 Report Structure (Consistent Across WBR/MBR/QBR)</h3>
+                <ol style="padding-left:20px; margin-top:12px; color:var(--text-secondary); font-size:14px; line-height:2.1;">
+                    <li><strong>Cover Page</strong> — Report type, date range, generation timestamp</li>
+                    <li><strong>Executive Summary</strong> — Key metrics table with favorable/unfavorable indicators</li>
+                    <li><strong>Newsletter Section</strong> — Landing page funnel, engagement metrics, subscriber growth/churn, series breakdown</li>
+                    <li><strong>Sales Section</strong> — Lead time tracking, conversion funnel charts, call metrics, pipeline performance</li>
+                    <li><strong>Insight Blocks</strong> — Each chart includes narrative explaining current vs. previous period, rolling average, trend direction, and favorability</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section: How Each Notebook Works ── -->
+    <section id="notebooks" class="section">
+        <h2 class="section-title">How Each Notebook Automates the Process</h2>
+        <div class="section-content">
+            <p>These 13 notebooks transform raw, messy data into polished reports automatically. Here's what each one does:</p>
+
+            <div class="card" style="margin-top:20px; padding:8px 24px;">
+                <div class="notebook-item">
+                    <div class="nb-num">01</div>
+                    <div class="nb-body">
+                        <h4>Newsletter Series</h4>
+                        <p><strong>Input:</strong> Raw email campaign data from Beehiiv</p>
+                        <ul>
+                            <li>Categorizes emails into series (Deal, Off-Market, Podcast, Case Study)</li>
+                            <li>Computes open rates, CTR, unsubscribe rates per series</li>
+                            <li>Aggregates daily → weekly → monthly → quarterly → annually</li>
+                            <li>Generates trend charts and saves categorized CSVs</li>
+                        </ul>
+                        <p class="nb-result">Before: Manually sorting 100s of emails → After: Run one notebook</p>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">02</div>
+                    <div class="nb-body">
+                        <h4>Newsletter Landing Page</h4>
+                        <p><strong>Input:</strong> Fathom Analytics export (timestamped pageviews)</p>
+                        <ul>
+                            <li>Combines multiple timestamp entries into daily totals</li>
+                            <li>Computes pageviews, unique visits, session duration, bounce rate</li>
+                            <li>Creates weekly/monthly/quarterly aggregations and charts</li>
+                        </ul>
+                        <p class="nb-result">Before: Excel pivot tables & manual charts → After: Automated</p>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">03</div>
+                    <div class="nb-body">
+                        <h4>Deal Upgrade Page</h4>
+                        <p><strong>Input:</strong> Two Fathom files (page visits + conversion events)</p>
+                        <ul>
+                            <li>Merges visit data and event data by date</li>
+                            <li>Calculates conversion rate (events / visits)</li>
+                            <li>Creates conversion funnel charts across all time periods</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">04</div>
+                    <div class="nb-body">
+                        <h4>Pro Site</h4>
+                        <p><strong>Input:</strong> Two Fathom files (Pro site visits + events)</p>
+                        <p>Same logic as notebook 03 but for the Pro tier — tracks Pro site visits and upgrade conversions independently.</p>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">05</div>
+                    <div class="nb-body">
+                        <h4>Discovery / Intro Calls</h4>
+                        <p><strong>Input:</strong> Calendly event data</p>
+                        <ul>
+                            <li>Categorizes calls by type (Discovery vs Intro)</li>
+                            <li>Computes booked calls, completed calls, no-shows</li>
+                            <li>Calculates average lead time (booking → call date)</li>
+                            <li>Generates charts for call metrics</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">06</div>
+                    <div class="nb-body">
+                        <h4>Sales Tracker</h4>
+                        <p><strong>Input:</strong> Sales pipeline Google Sheet export</p>
+                        <ul>
+                            <li>Processes full sales funnel: Scheduled → Live → Offers → Closes</li>
+                            <li>Calculates show rate, offer rate, close rate</li>
+                            <li>Aggregates revenue and deal counts</li>
+                            <li>Creates pipeline performance charts</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">07</div>
+                    <div class="nb-body">
+                        <h4>Typeform Submissions</h4>
+                        <p><strong>Input:</strong> Raw Typeform export (messy, many columns)</p>
+                        <ul>
+                            <li>Removes unnecessary rows/columns, fixes date formats</li>
+                            <li>Extracts needed metrics, categorizes by completion status</li>
+                            <li>Aggregates to all time periods and saves clean CSV</li>
+                        </ul>
+                        <p class="nb-result">Before: Manual Excel cleanup → After: Clean CSV in seconds</p>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">08</div>
+                    <div class="nb-body">
+                        <h4>General Newsletter Metrics</h4>
+                        <p><strong>Input:</strong> Beehiiv subscriber & unsubscribe data</p>
+                        <ul>
+                            <li>Calculates subscriber growth rate, net adds, leak rate</li>
+                            <li>Aggregates across all time periods and creates growth/churn charts</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">09</div>
+                    <div class="nb-body">
+                        <h4>Sales Metrics Analysis</h4>
+                        <p><strong>Input:</strong> Processed CSVs from notebooks 03–06</p>
+                        <ul>
+                            <li>Creates WoW and MoM comparison tables</li>
+                            <li>Formats consolidated sales section ready for WBR/MBR</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">10</div>
+                    <div class="nb-body">
+                        <h4>Newsletter Analysis</h4>
+                        <p><strong>Input:</strong> Processed CSVs from notebooks 01, 02, 08</p>
+                        <ul>
+                            <li>Creates WoW and MoM comparison tables</li>
+                            <li>Consolidated newsletter section ready for reports</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">11</div>
+                    <div class="nb-body">
+                        <h4>WBR Generator</h4>
+                        <p><strong>Input:</strong> All CSVs and charts from notebooks 01–10</p>
+                        <ul>
+                            <li>Loads weekly aggregated data and charts</li>
+                            <li>Generates narrative insights for each metric</li>
+                            <li>Assembles into formatted Word document</li>
+                            <li><strong>Output:</strong> Weekly_Business_Review_{date}.docx</li>
+                        </ul>
+                        <p class="nb-result">Before: 2 hours assembling report → After: 2 minutes</p>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">12</div>
+                    <div class="nb-body">
+                        <h4>MBR Generator</h4>
+                        <p>Same logic as notebook 11 but using monthly aggregated data.</p>
+                        <p><strong>Output:</strong> Monthly_Business_Review_{date}.docx</p>
+                    </div>
+                </div>
+                <div class="notebook-item">
+                    <div class="nb-num">13</div>
+                    <div class="nb-body">
+                        <h4>QBR Generator</h4>
+                        <p>Same logic as notebook 11 but using quarterly aggregated data.</p>
+                        <p><strong>Output:</strong> Quarterly_Business_Review_{date}.docx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section: Technical Stack ── -->
+    <section id="technical" class="section">
+        <h2 class="section-title">Technical Stack & Implementation</h2>
+        <div class="section-content">
+            <p style="margin-bottom:16px;">Technologies used:</p>
+            <div class="tech-badges">
+                <span class="tech-badge">Python 3.8+</span>
+                <span class="tech-badge">Jupyter Notebooks</span>
+                <span class="tech-badge">pandas</span>
+                <span class="tech-badge">matplotlib</span>
+                <span class="tech-badge">seaborn</span>
+                <span class="tech-badge">python-docx</span>
+                <span class="tech-badge">numpy</span>
+                <span class="tech-badge">scipy</span>
+            </div>
+
+            <div class="feature-grid" style="margin-top:24px;">
+                <div class="feature-card">
+                    <h3>1. Modular Architecture</h3>
+                    <p><strong>"One Notebook = One Data Domain = One Set of Outputs"</strong></p>
+                    <p style="margin-top:8px;">Each notebook handles a single responsibility, writing cleaned CSVs as outputs. This enables independent testing, easier debugging, and the ability to re-run specific metrics without affecting others.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>2. CSVs as Intermediate Storage</h3>
+                    <p><strong>Traceability & Reproducibility</strong></p>
+                    <p style="margin-top:8px;">Every notebook writes CSVs to outputs/. This provides a paper trail for every metric, enables inspection at any stage, and ensures identical outputs given the same inputs — mirroring modern data warehouse patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>3. Programmatic Report Generation</h3>
+                    <p><strong>No Manual Document Editing</strong></p>
+                    <p style="margin-top:8px;">Reports are generated entirely via python-docx code. This ensures consistent formatting, reproducible outputs, easy updates when metrics change, and version-controlled report logic.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>4. Semantic Consistency</h3>
+                    <p><strong>Same Metrics, Different Time Horizons</strong></p>
+                    <p style="margin-top:8px;">WBR, MBR, and QBR use identical metric definitions but at different time scales. This consistency enables direct comparison across reports while providing appropriate granularity for each audience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section: Who This Is For ── -->
+    <section id="fit" class="section">
+        <h2 class="section-title">Who This Project Is For (And Who It's Not For)</h2>
+        <div class="section-content">
+            <div class="fit-grid">
+                <div class="fit-yes">
+                    <h3>✅ Ideal For</h3>
+                    <ul class="fit-list">
+                        <li>Small to mid-sized businesses without a BI team</li>
+                        <li>Founders/operators needing recurring WBR/MBR/QBR</li>
+                        <li>Analytics engineers building automated reporting pipelines</li>
+                        <li>Data analysts transitioning into analytics engineering roles</li>
+                        <li>Portfolio projects demonstrating data engineering skills</li>
+                    </ul>
+                </div>
+                <div class="fit-no">
+                    <h3>❌ Not Ideal For</h3>
+                    <ul class="fit-list">
+                        <li>Real-time dashboards (this is batch reporting)</li>
+                        <li>Large enterprises with full data warehouses</li>
+                        <li>Ad-hoc exploratory analytics</li>
+                        <li>Self-service BI (no drill-down capability)</li>
+                        <li>Multi-user collaboration (single-user design)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="scope-note">
+                <strong>Scope Note:</strong> This project demonstrates analytics engineering fundamentals at a realistic portfolio scale,
+                including modular data pipelines, standardized metric definitions, and reproducible reporting workflows.
+                It is intentionally scoped as a proof-of-concept rather than production infrastructure.
+                The focus is on system design, data modeling, and analytical methodology — all transferable across BI and analytics stacks.
+                <br><br>
+                <em>All data used is either anonymized, simulated, or structurally representative.</em>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Section: Key Takeaways ── -->
+    <section id="takeaways" class="section">
+        <h2 class="section-title">Key Takeaways & Skills Demonstrated</h2>
+        <div class="section-content">
+            <ul class="takeaways-list">
+                <li><strong>Analytics engineering:</strong> Modular transformations, semantic consistency, intermediate data modeling using CSV layers — patterns that translate directly to modern data warehouses.</li>
+                <li><strong>Data pipeline engineering:</strong> Designed end-to-end ETL pipeline from raw data ingestion through aggregation to report generation with 13 modular components.</li>
+                <li><strong>Python & pandas mastery:</strong> Built complex data transformations handling date normalization, multi-source joins, period-over-period calculations, rolling averages, and linear regression.</li>
+                <li><strong>Process automation:</strong> Reduced 8-hour manual workflow to 30-minute automated pipeline — 94% time savings through intelligent system design.</li>
+                <li><strong>Report automation:</strong> Programmatically generated professional Word documents with charts, tables, and narrative insights using python-docx — eliminating 100% of manual report creation.</li>
+                <li><strong>Metric standardization:</strong> Established consistent definitions across time horizons (WBR/MBR/QBR) enabling apples-to-apples comparison and reproducible analysis.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ── Section: Roadmap ── -->
+    <section id="roadmap" class="section">
+        <h2 class="section-title">Roadmap & Future Improvements</h2>
+        <div class="section-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>API Integration (Next Version)</h3>
+                    <p><strong>Current:</strong> Manual CSV downloads from platforms</p>
+                    <p style="margin-top:8px;"><strong>Future:</strong> Direct API connections to Beehiiv, Fathom Analytics, and Calendly — enabling fully automated ingestion without manual downloads.</p>
+                    <p style="margin-top:10px; color:var(--accent); font-size:14px;"><strong>Impact:</strong> 30 min → 5 min (just run the code)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Scheduled Automation</h3>
+                    <p>Deploy to cloud (AWS Lambda, GitHub Actions) with cron scheduling to automatically generate reports weekly/monthly/quarterly without any manual intervention.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Interactive Dashboard</h3>
+                    <p>Build Streamlit or Dash app for real-time metric exploration, allowing stakeholders to filter by date ranges, drill into specific metrics, and export custom views.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>ML-Based Anomaly Detection</h3>
+                    <p>Implement machine learning models (Isolation Forest, LSTM) for sophisticated pattern recognition, trend forecasting, and automated identification of unusual metric behavior.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── GitHub ── -->
+    <div class="github-section">
+        <div class="github-info">
+            <h4>View Full Project Code</h4>
+            <p>All code, data, and documentation available on GitHub</p>
+        </div>
+        <a href="https://github.com/mariaangelicabaldres/business_metrics" class="github-btn" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            View Repository
+        </a>
+    </div>
+
+    <!-- ── Credibility Note ── -->
+    <div class="credibility-note">
+        <strong>Note:</strong> This is a portfolio case study built around a real client engagement. Data has been anonymized and platform names are used descriptively. The pipeline architecture, metric definitions, and automation logic are real and fully functional. This project demonstrates analytics engineering methodology transferable to any recurring reporting use case.
+    </div>
+
+    <!-- ── Footer ── -->
+    <footer class="footer">
+        © <span id="currentYear"></span> Maria Angelica Baldres. All rights reserved.
+    </footer>
+
+</div>
+
+<script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    }
+
+    (function() {
+        const saved = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+    })();
+
+    // MIDDLE PROJECT — both buttons active
+    (function() {
+        const file = window.location.pathname.split('/').pop();
+        const match = file.match(/project_(\d+)/);
+        if (!match) return;
+        const n = parseInt(match[1]);
+        const prev = document.getElementById('prevProject');
+        const next = document.getElementById('nextProject');
+        prev.href = 'project_' + (n - 1) + '.html';
+        prev.classList.remove('disabled');
+        next.href = 'project_' + (n + 1) + '.html';
+        next.classList.remove('disabled');
+    })();
+</script>
+</body>
+</html>
